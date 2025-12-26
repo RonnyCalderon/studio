@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Heart, Compass, Flame } from "lucide-react";
 import { type ChallengeCategory } from "@/lib/hooks/use-weekly-challenge";
+import { quotes } from "@/lib/quotes";
+import { useEffect, useState } from "react";
 
 interface ChallengeSelectionProps {
     onSelectCategory: (category: ChallengeCategory) => void;
@@ -31,6 +33,14 @@ const categoryDetails = {
 }
 
 export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps) {
+    const [quote, setQuote] = useState({ text: "", author: "" });
+
+    useEffect(() => {
+        // Select a random quote on component mount
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        setQuote(randomQuote);
+    }, []);
+
     return (
         <div className="container mx-auto py-8 text-center">
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">Choose Your Desire</h1>
@@ -58,6 +68,13 @@ export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps
                         </Card>
                     )
                 })}
+            </div>
+
+            <div className="mt-20 max-w-3xl mx-auto">
+                <blockquote className="border-l-2 border-accent pl-6 italic text-muted-foreground">
+                    "{quote.text}"
+                </blockquote>
+                <p className="mt-4 text-right font-semibold text-primary">— {quote.author}</p>
             </div>
         </div>
     );

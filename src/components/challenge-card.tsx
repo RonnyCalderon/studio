@@ -146,17 +146,22 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                 <span className="text-lg font-semibold">Challenge Completed!</span>
             </div>
         ) : isTimerRunning ? (
+            <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                <Heart className="mr-2 h-5 w-5" />
+                We Did It!
+            </Button>
+        ) : (
             <div className="flex flex-col sm:flex-row items-center gap-4">
-                <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
-                    <Heart className="mr-2 h-5 w-5" />
-                    We Did It!
+                <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <Play className="mr-2 h-5 w-5" />
+                    Start Challenge
                 </Button>
-                <div className="[&>button]:bg-transparent [&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10">
+                 <div className="[&>button]:bg-transparent [&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10">
                   <AddToCalendarButton
                     name={`Weekly Challenge: ${challenge.text}`}
                     description={challenge.persuasionScript}
                     startDate={new Date(Date.now()).toISOString().split('T')[0]}
-                    endDate={new Date(expiry!).toISOString().split('T')[0]}
+                    endDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                     timeZone="current"
                     options={['Apple','Google','Outlook.com']}
                     label="Add to Calendar"
@@ -164,13 +169,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                     size="sm"
                   />
                 </div>
-
             </div>
-        ) : (
-            <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
-                <Play className="mr-2 h-5 w-5" />
-                Start Challenge
-            </Button>
         )}
       </CardFooter>
     </Card>

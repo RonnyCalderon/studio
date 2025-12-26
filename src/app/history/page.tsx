@@ -3,11 +3,11 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { Trophy, Flame, ChevronRight } from "lucide-react";
+import { Trophy, Flame } from "lucide-react";
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { levels, type Level } from "@/lib/levels";
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CompletedChallenge {
     challenge: Challenge;
@@ -40,7 +40,6 @@ const getCurrentLevel = (completedCount: number): [Level | null, Level | null] =
     return [currentLevel, nextLevel];
 };
 
-
 export default function HistoryPage() {
     const [history, setHistory] = useState<CompletedChallenge[]>([]);
     const [currentLevel, setCurrentLevel] = useState<Level | null>(null);
@@ -49,9 +48,10 @@ export default function HistoryPage() {
     useEffect(() => {
         const storedHistory = localStorage.getItem('challengeHistory');
         if (storedHistory) {
-            const parsedHistory = JSON.parse(storedHistory);
-            setHistory(parsedHistory);
-            const [current, next] = getCurrentLevel(parsedHistory.length);
+            const parsedHistory: CompletedChallenge[] = JSON.parse(storedHistory);
+            const sortedHistory = parsedHistory.sort((a, b) => a.completedAt - b.completedAt);
+            setHistory(sortedHistory);
+            const [current, next] = getCurrentLevel(sortedHistory.length);
             setCurrentLevel(current);
             setNextLevel(next);
         }
@@ -59,11 +59,18 @@ export default function HistoryPage() {
 
     const completedCount = history.length;
     const progress = nextLevel && currentLevel 
-        ? Math.round(((completedCount - currentLevel.threshold) / (nextLevel.threshold - currentLevel.threshold)) * 100)
+        ? Math.round(((completedCount - (currentLevel.threshold - 1)) / (nextLevel.threshold - (currentLevel.threshold - 1))) * 100)
         : completedCount > 0 ? 100 : 0;
     
     const unlockedLevels = levels.filter(l => l.threshold <= completedCount);
     const lockedLevels = levels.filter(l => l.threshold > completedCount);
+
+    const getChallengesForLevel = (level: Level) => {
+        const levelIndex = levels.findIndex(l => l.level === level.level);
+        const prevLevelThreshold = levelIndex > 0 ? levels[levelIndex - 1].threshold : 0;
+        // The history is sorted oldest to newest.
+        return history.slice(prevLevelThreshold, level.threshold);
+    };
 
     return (
         <div className="container mx-auto py-8 space-y-8">
@@ -76,7 +83,7 @@ export default function HistoryPage() {
                         <div className="flex items-center gap-4">
                            <currentLevel.icon className="h-12 w-12 text-accent" />
                            <div>
-                                <CardDescription>Current Level</CardDescription>
+                                <CardDescription>Current Rank</CardDescription>
                                 <CardTitle className="font-headline text-3xl text-accent">{currentLevel.title}</CardTitle>
                            </div>
                         </div>
@@ -103,40 +110,70 @@ export default function HistoryPage() {
             <div className="space-y-4">
                 <h2 className="font-headline text-2xl">Unlocked Ranks</h2>
                 {unlockedLevels.length > 0 ? (
-                    <div className="grid gap-2">
+                    <Accordion type="multiple" className="space-y-2">
                         {unlockedLevels.map(level => (
-                            <Card key={level.level} className="flex items-center p-3 bg-card/50">
-                                <level.icon className="h-6 w-6 mr-4 text-primary" />
-                                <div className="flex-grow">
-                                    <p className="font-bold">{level.title}</p>
-                                    <p className="text-xs text-muted-foreground">Unlocked at {level.threshold} challenges</p>
-                                </div>
-                            </Card>
+                            <AccordionItem key={level.level} value={`level-${level.level}`} className="border-b-0">
+                               <Card className="bg-card/80">
+                                <AccordionTrigger className="p-4 hover:no-underline">
+                                     <div className="flex items-center text-left">
+                                        <level.icon className="h-6 w-6 mr-4 text-primary" />
+                                        <div className="flex-grow">
+                                            <p className="font-bold">{level.title}</p>
+                                            <p className="text-xs text-muted-foreground">Unlocked at {level.threshold} challenges</p>
+                                        </div>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-4 pb-4">
+                                    <div className="space-y-4">
+                                        <p className="italic text-muted-foreground">"{level.description}"</p>
+                                        <div>
+                                            <h4 className="font-semibold mb-2">Completed Steps on this Path:</h4>
+                                            <div className="grid gap-2">
+                                                {getChallengesForLevel(level).map((item, index) => (
+                                                    <div key={index} className="text-sm p-2 bg-background/50 rounded-md">
+                                                        - "{item.challenge.text}"
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </AccordionContent>
+                               </Card>
+                            </AccordionItem>
                         ))}
-                    </div>
+                    </Accordion>
                 ) : <p className="text-sm text-muted-foreground">Complete a challenge to unlock your first rank.</p>}
             </div>
 
             {lockedLevels.length > 0 && (
                 <div className="space-y-4">
                     <h2 className="font-headline text-2xl">The Path Ahead</h2>
-                     <div className="grid gap-2">
+                     <Accordion type="multiple" className="space-y-2">
                         {lockedLevels.map(level => (
-                            <Card key={level.level} className="flex items-center p-3 bg-muted/20 opacity-60">
-                                <level.icon className="h-6 w-6 mr-4 text-muted-foreground" />
-                                <div className="flex-grow">
-                                    <p className="font-bold text-muted-foreground">{level.title}</p>
-                                    <p className="text-xs text-muted-foreground">Unlocks at {level.threshold} challenges</p>
-                                </div>
-                            </Card>
+                            <AccordionItem key={level.level} value={`level-${level.level}`} className="border-b-0">
+                                <Card className="bg-muted/20 opacity-70 hover:opacity-100 transition-opacity">
+                                    <AccordionTrigger className="p-4 hover:no-underline">
+                                        <div className="flex items-center text-left">
+                                            <level.icon className="h-6 w-6 mr-4 text-muted-foreground" />
+                                            <div className="flex-grow">
+                                                <p className="font-bold text-muted-foreground">{level.title}</p>
+                                                <p className="text-xs text-muted-foreground">Unlocks at {level.threshold} challenges</p>
+                                            </div>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-4 pb-4">
+                                        <p className="italic text-muted-foreground">"{level.description}"</p>
+                                    </AccordionContent>
+                                </Card>
+                            </AccordionItem>
                         ))}
-                    </div>
+                    </Accordion>
                 </div>
             )}
 
 
             <div>
-                 <h2 className="font-headline text-2xl mb-4 mt-12">Completed Challenges ({completedCount})</h2>
+                 <h2 className="font-headline text-2xl mb-4 mt-12">Completed Challenges Log ({completedCount})</h2>
                 {history.length === 0 ? (
                     <Card className="text-center p-12">
                         <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4"/>
@@ -145,7 +182,7 @@ export default function HistoryPage() {
                     </Card>
                 ) : (
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {history.map((item, index) => (
+                        {history.slice().reverse().map((item, index) => (
                             <Card key={index} className="flex flex-col">
                                 <CardHeader>
                                     <div className="flex justify-between items-start">

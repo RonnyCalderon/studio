@@ -3,13 +3,12 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Heart, Play, Flame, CalendarPlus } from "lucide-react";
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { Separator } from "./ui/separator";
 import { atcb_action } from 'add-to-calendar-button';
-import { cn } from "@/lib/utils";
 
 interface ChallengeCardProps {
   challenge: Challenge;
@@ -184,6 +183,23 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                       startDate: new Date(Date.now()).toISOString().split('T')[0],
                       endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                       options: ['Apple','Google','Outlook.com'],
+                      alarms: [
+                        {
+                          trigger: 'P1D',
+                          type: 'display',
+                          description: 'Check-in on your weekly challenge!'
+                        },
+                        {
+                          trigger: 'P3D',
+                          type: 'display',
+                          description: 'Halfway through the challenge week!'
+                        },
+                        {
+                          trigger: '-PT1H',
+                          type: 'display',
+                          description: 'Only 1 hour left for your challenge!'
+                        }
+                      ],
                     }}
                     variant="outline"
                     className="font-bold"

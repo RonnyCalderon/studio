@@ -94,6 +94,10 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
   }
 
   const isTimerRunning = expiry !== null;
+  const formattedPersuasionScript = challenge.persuasionScript
+    .replace(/\n/g, '<br />')
+    .replace(/\*   /g, '<br />&bull; ')
+    .replace(/<br \/>&bull;/, '&bull;');
 
   return (
     <Card className="w-full max-w-3xl mx-auto overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
@@ -120,10 +124,8 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
           "{challenge.text}"
         </p>
         
-        <div className="text-center bg-muted/30 p-4 rounded-lg">
-          <p className="text-base font-body italic text-foreground/80">
-            "{challenge.persuasionScript}"
-          </p>
+        <div className="text-left bg-muted/30 p-4 rounded-lg prose prose-sm max-w-none text-foreground/80 italic prose-strong:text-foreground/90">
+          <div dangerouslySetInnerHTML={{ __html: `"${formattedPersuasionScript}"`}} />
         </div>
 
         {isTimerRunning && (

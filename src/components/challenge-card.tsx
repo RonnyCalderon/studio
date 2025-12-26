@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Play, Flame } from "lucide-react";
+import { CheckCircle, Clock, Heart, Play, Flame, CalendarPlus } from "lucide-react";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
@@ -80,14 +80,13 @@ const AddToCalendarButton = ({className, ...props}: React.ComponentProps<typeof 
   const { config, ...rest } = props;
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useLayoutEffect(() => {
-    if (buttonRef.current) {
-      buttonRef.current.addEventListener('click', () => atcb_action(config, buttonRef.current!));
-    }
-  }, [config, buttonRef]);
-  
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    atcb_action(config, buttonRef.current!);
+  };
+
   return (
-    <Button ref={buttonRef} {...rest}>
+    <Button ref={buttonRef} onClick={handleClick} {...rest}>
       {props.children}
     </Button>
   );
@@ -115,8 +114,9 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
   const formattedPersuasionScript = challenge.persuasionScript
     .replace(/\n/g, '<br />')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*   /g, '<br />&bull; ')
-    .replace(/<br \/>&bull;/, '&bull;');
+    .replace(/<br \/>\*/g, '<ul><li>')
+    .replace(/\* /g, '<li>')
+    .replace(/<br \/>$/, '') + '</ul>';
 
   return (
     <Card className="w-full max-w-3xl mx-auto overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
@@ -143,7 +143,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
           "{challenge.text}"
         </p>
         
-        <div className="text-left bg-muted/30 p-4 rounded-lg prose prose-sm max-w-none text-foreground/80 italic prose-strong:text-foreground/90">
+        <div className="text-left bg-muted/30 p-4 rounded-lg prose prose-sm max-w-none text-foreground/80 italic prose-strong:text-foreground/90 prose-ul:list-disc prose-ul:pl-5 prose-li:mb-2">
           <div dangerouslySetInnerHTML={{ __html: `"${formattedPersuasionScript}"`}} />
         </div>
 
@@ -180,14 +180,15 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                 <AddToCalendarButton
                     config={{
                       name: `Weekly Challenge: ${challenge.text}`,
-                      description: challenge.persuasionScript,
+                      description: `"${challenge.text}"\n\nHere's a little script to get things started:\n${challenge.persuasionScript.replace(/<br \/>/g, '\n').replace(/<\/?strong>/g, '').replace(/<\/?ul>/g, '').replace(/<li>/g, '\n- ')}`,
                       startDate: new Date(Date.now()).toISOString().split('T')[0],
                       endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                       options: ['Apple','Google','Outlook.com'],
-                      timeZone: "current",
                     }}
                     variant="outline"
+                    className="font-bold"
                   >
+                    <CalendarPlus className="mr-2 h-5 w-5" />
                     Add to Calendar
                 </AddToCalendarButton>
             </div>

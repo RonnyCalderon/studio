@@ -161,6 +161,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                       startDate: new Date(expiry - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                       endDate: new Date(expiry).toISOString().split('T')[0],
                       options: ['Apple','Google','Outlook.com'],
+                      location: 'Wherever you feel the spark!',
                       alarms: [
                         {
                           trigger: 'P1D',
@@ -183,7 +184,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                     className="font-bold mt-4"
                   >
                     <CalendarPlus className="mr-2 h-5 w-5" />
-                    Add to Calendar
+                    Invite Partner & Add to Calendar
                 </AddToCalendarButton>
             </div>
           </>

@@ -7,12 +7,16 @@ export function AddToHomeScreen() {
   const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
-    const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isInStandaloneMode = () => 'standalone' in window.navigator && (window.navigator as any).standalone;
+    // This will now show the prompt on any device after a short delay,
+    // making it visible in the development environment.
+    const timer = setTimeout(() => {
+        const isInStandaloneMode = () => 'standalone' in window.navigator && (window.navigator as any).standalone;
+        if (!isInStandaloneMode()) {
+            setShowPrompt(true);
+        }
+    }, 2000); // Show after 2 seconds
 
-    if (isIOS() && !isInStandaloneMode()) {
-      setShowPrompt(true);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   if (!showPrompt) {
@@ -24,7 +28,7 @@ export function AddToHomeScreen() {
         <div className="bg-background border border-border rounded-xl shadow-lg p-4 max-w-xs text-sm text-foreground animate-in slide-in-from-bottom-10 fade-in-50 duration-500">
             <p className="font-bold mb-2">Get the Full App Experience!</p>
             <p className="text-muted-foreground">
-                For easy access, add this app to your Home Screen. Tap the Share icon
+                For easy access on your phone, add this app to your Home Screen. Tap the Share icon
                 <Share2 className="inline-block mx-1 h-4 w-4" />
                 and then select 'Add to Home Screen'.
             </p>

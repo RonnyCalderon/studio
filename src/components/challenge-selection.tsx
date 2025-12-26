@@ -7,6 +7,7 @@ import { type ChallengeCategory } from "@/lib/hooks/use-weekly-challenge";
 import { quotes } from "@/lib/quotes";
 import { useEffect, useState } from "react";
 import { AddToHomeScreen } from "./add-to-home-screen";
+import { useUser } from "@/context/user-provider";
 
 interface ChallengeSelectionProps {
     onSelectCategory: (category: ChallengeCategory) => void;
@@ -34,6 +35,7 @@ const categoryDetails = {
 }
 
 export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps) {
+    const { userName } = useUser();
     const [quote, setQuote] = useState({ text: "", author: "" });
 
     useEffect(() => {
@@ -42,10 +44,15 @@ export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps
         setQuote(randomQuote);
     }, []);
 
+    const title = userName ? `What are you in the mood for, ${userName}?` : "Choose Your Desire";
+    const description = userName 
+        ? `A new week brings a new invitation for you and your partner. Pick a path to reveal the nature of your next adventure together.`
+        : "A new week, a new invitation to connect. Pick a card to reveal the category of your next challenge.";
+
     return (
         <div className="container mx-auto py-8 text-center">
-            <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">Choose Your Desire</h1>
-            <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">A new week, a new invitation to connect. Pick a card to reveal the category of your next challenge.</p>
+            <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">{title}</h1>
+            <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">{description}</p>
 
             <div className="grid md:grid-cols-3 gap-8">
                 {(Object.keys(categoryDetails) as ChallengeCategory[]).map(key => {

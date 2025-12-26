@@ -1,9 +1,15 @@
 export const rewards = [
-    "A 20-minute full body massage for one partner, by the other.",
-    "Choose a movie tonight, no complaints allowed!",
-    "One partner gets to be 'the boss' for the next 2 hours.",
+    "A 20-minute full body massage, no complaints, from your partner.",
+    "You get to pick the movie for your next three movie nights.",
+    "Your partner has to do your least favorite chore for a week.",
     "Breakfast in bed this weekend, prepared by your partner.",
     "A 'get out of one chore free' card.",
-    "Plan a special date night, all expenses paid by one partner.",
-    "Uninterrupted cuddle time for 30 minutes, no phones allowed."
+    "Your partner plans a surprise date night, all you have to do is show up.",
+    "30 minutes of uninterrupted cuddle time, no phones allowed.",
+    "Your partner makes you a playlist of songs that remind them of you.",
+    "You get to win the next silly argument, no questions asked.",
+    "A romantic candle-lit dinner at home, cooked by your partner.",
+    "An entire day dedicated to your favorite activities, planned by your partner.",
+    "Your partner has to write you a heartfelt love letter.",
+    "You get control of the TV remote for a whole week."
 ];

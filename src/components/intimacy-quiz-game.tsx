@@ -12,6 +12,7 @@ export function IntimacyQuizGame() {
   const [currentQuestion, setCurrentQuestion] = useState<IntimacyQuestion | null>(null);
 
   const getNextQuestion = useCallback(() => {
+    // Use smart shuffle to get a unique question from the entire list until all have been seen
     const nextQuestion = smartShuffle('intimacyQuestions', intimacyQuestions);
     setCurrentQuestion(nextQuestion);
   }, []);

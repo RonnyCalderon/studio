@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Play, CalendarPlus } from "lucide-react";
+import { CheckCircle, Clock, Heart, Play, CalendarPlus, Flame } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";

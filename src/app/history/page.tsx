@@ -3,12 +3,24 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { Trophy } from "lucide-react";
+import { Trophy, Flame } from "lucide-react";
+import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 
 interface CompletedChallenge {
-    challenge: string;
+    challenge: Challenge;
     completedAt: number;
 }
+
+const SpicyLevel = ({ level }: { level: number }) => {
+    return (
+        <div className="flex items-center gap-1">
+            {Array.from({ length: 3 }).map((_, i) => (
+                <Flame key={i} className={`h-4 w-4 ${i < level ? 'text-red-500 fill-current' : 'text-gray-400'}`} />
+            ))}
+        </div>
+    );
+};
+
 
 export default function HistoryPage() {
     const [history, setHistory] = useState<CompletedChallenge[]>([]);
@@ -35,11 +47,14 @@ export default function HistoryPage() {
                     {history.map((item, index) => (
                         <Card key={index} className="flex flex-col">
                             <CardHeader>
-                                <CardDescription>
-                                    {format(new Date(item.completedAt), "MMMM d, yyyy")}
-                                </CardDescription>
-                                <CardTitle className="font-body text-lg leading-snug">
-                                    "{item.challenge}"
+                                <div className="flex justify-between items-start">
+                                    <CardDescription>
+                                        {format(new Date(item.completedAt), "MMMM d, yyyy")}
+                                    </CardDescription>
+                                    {item.challenge.spicyLevel && <SpicyLevel level={item.challenge.spicyLevel} />}
+                                </div>
+                                <CardTitle className="font-body text-lg leading-snug pt-2">
+                                    "{item.challenge.text}"
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow flex items-end justify-end">

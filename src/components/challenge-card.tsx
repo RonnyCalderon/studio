@@ -2,13 +2,14 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart } from "lucide-react";
-import { useEffect, useState } from "react";
+import { CheckCircle, Clock, Heart, Flame } from "lucide-react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
-import { placeholderImages } from "@/lib/placeholder-images";
+import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
+import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 
 interface ChallengeCardProps {
-  challenge: string;
+  challenge: Challenge;
   expiry: number;
   onComplete: () => void;
   isCompleted: boolean;
@@ -61,8 +62,29 @@ const Countdown = ({ expiry }: { expiry: number }) => {
     );
 };
 
+const SpicyLevel = ({ level }: { level: number }) => {
+    return (
+        <div className="flex items-center gap-1">
+            {Array.from({ length: 3 }).map((_, i) => (
+                <Flame key={i} className={`h-5 w-5 ${i < level ? 'text-red-500 fill-current' : 'text-gray-400'}`} />
+            ))}
+        </div>
+    );
+};
+
 export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: ChallengeCardProps) {
-  const challengeImage = placeholderImages[0];
+  const [challengeImage, setChallengeImage] = useState<ImagePlaceholder | null>(null);
+
+  useEffect(() => {
+    // Select a random image when the component mounts or challenge changes
+    const challengeImages = placeholderImages.filter(img => img.imageHint.includes('couple'));
+    const randomImage = challengeImages[Math.floor(Math.random() * challengeImages.length)];
+    setChallengeImage(randomImage);
+  }, [challenge]);
+
+  if (!challengeImage) {
+      return null;
+  }
 
   return (
     <Card className="w-full max-w-3xl mx-auto overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
@@ -75,13 +97,16 @@ export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: Ch
             data-ai-hint={challengeImage.imageHint}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute top-4 right-4 bg-black/50 p-2 rounded-lg">
+            <SpicyLevel level={challenge.spicyLevel} />
+        </div>
         <div className="absolute bottom-0 left-0 p-6">
             <CardTitle className="font-headline text-3xl text-white drop-shadow-lg">Weekly Challenge</CardTitle>
         </div>
       </div>
       <CardContent className="p-6 text-center space-y-6">
         <p className="text-xl lg:text-2xl font-body leading-relaxed text-foreground/90">
-          "{challenge}"
+          "{challenge.text}"
         </p>
         <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-2 text-muted-foreground">

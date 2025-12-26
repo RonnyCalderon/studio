@@ -6,8 +6,13 @@ import { generateWeeklyChallenge } from '@/ai/flows/generate-weekly-challenge';
 const CHALLENGE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
 const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
 
+export interface Challenge {
+  text: string;
+  spicyLevel: number;
+}
+
 export interface WeeklyChallengeState {
-  challenge: string | null;
+  challenge: Challenge | null;
   expiry: number | null;
   isCompleted: boolean;
   rewardExpiry: number | null;
@@ -37,7 +42,7 @@ export function useWeeklyChallenge() {
       setState({ ...newState, isLoading: false });
     } catch (error) {
       console.error("Failed to generate challenge:", error);
-      setState(s => ({ ...s, isLoading: false, challenge: "Error loading challenge. Try refreshing." }));
+      setState(s => ({ ...s, isLoading: false, challenge: { text: "Error loading challenge. Try refreshing.", spicyLevel: 1 } }));
     }
   }, []);
 
@@ -48,7 +53,14 @@ export function useWeeklyChallenge() {
     if (storedStateJSON) {
       const storedState: WeeklyChallengeState = JSON.parse(storedStateJSON);
       if (storedState.expiry && now > storedState.expiry) {
-        getNewChallenge();
+        // Handle expiration of a reward period
+        if (storedState.isCompleted && storedState.rewardExpiry && now > storedState.rewardExpiry) {
+            getNewChallenge();
+        } else if (!storedState.isCompleted) {
+            getNewChallenge();
+        } else {
+             setState({ ...storedState, isLoading: false });
+        }
       } else {
         setState({ ...storedState, isLoading: false });
       }
@@ -70,7 +82,7 @@ export function useWeeklyChallenge() {
     localStorage.setItem('weeklyChallengeState', JSON.stringify(completedState));
     
     const historyJSON = localStorage.getItem('challengeHistory');
-    const history: { challenge: string, completedAt: number }[] = historyJSON ? JSON.parse(historyJSON) : [];
+    const history: { challenge: Challenge, completedAt: number }[] = historyJSON ? JSON.parse(historyJSON) : [];
     const newHistory = [{ challenge: state.challenge, completedAt: now }, ...history];
     localStorage.setItem('challengeHistory', JSON.stringify(newHistory));
     

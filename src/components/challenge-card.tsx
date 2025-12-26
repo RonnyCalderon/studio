@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Flame, Sparkles } from "lucide-react";
+import { CheckCircle, Clock, Heart, Flame, Sparkles, Play } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
@@ -11,7 +11,8 @@ import { Separator } from "./ui/separator";
 
 interface ChallengeCardProps {
   challenge: Challenge;
-  expiry: number;
+  expiry: number | null; // Can be null if timer hasn't started
+  onStart: () => void;
   onComplete: () => void;
   isCompleted: boolean;
 }
@@ -73,7 +74,7 @@ const SpicyLevel = ({ level }: { level: number }) => {
     );
 };
 
-export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: ChallengeCardProps) {
+export function ChallengeCard({ challenge, expiry, onStart, onComplete, isCompleted }: ChallengeCardProps) {
   const [challengeImage, setChallengeImage] = useState<ImagePlaceholder | null>(null);
 
   useEffect(() => {
@@ -86,6 +87,8 @@ export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: Ch
   if (!challengeImage) {
       return null;
   }
+
+  const isTimerRunning = expiry !== null;
 
   return (
     <Card className="w-full max-w-3xl mx-auto overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
@@ -116,15 +119,18 @@ export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: Ch
           </p>
         </div>
 
-        <Separator className="my-6" />
-
-        <div className="flex flex-col items-center gap-4 pt-2">
-            <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="h-5 w-5" />
-                <span>Time Remaining</span>
+        {isTimerRunning && (
+          <>
+            <Separator className="my-6" />
+            <div className="flex flex-col items-center gap-4 pt-2">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                    <Clock className="h-5 w-5" />
+                    <span>Time Remaining</span>
+                </div>
+                <Countdown expiry={expiry} />
             </div>
-            <Countdown expiry={expiry} />
-        </div>
+          </>
+        )}
       </CardContent>
       <CardFooter className="p-6 bg-muted/50 flex justify-center">
         {isCompleted ? (
@@ -132,10 +138,15 @@ export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: Ch
                 <CheckCircle className="h-6 w-6"/>
                 <span className="text-lg font-semibold">Challenge Completed!</span>
             </div>
-        ) : (
+        ) : isTimerRunning ? (
             <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
                 <Heart className="mr-2 h-5 w-5" />
                 We Did It!
+            </Button>
+        ) : (
+            <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                <Play className="mr-2 h-5 w-5" />
+                Start Challenge
             </Button>
         )}
       </CardFooter>

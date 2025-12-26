@@ -17,10 +17,10 @@ export interface Challenge {
 
 export interface WeeklyChallengeState {
   challenge: Challenge | null;
-  expiry: number | null;
+  expiry: number | null; // Can be null if challenge hasn't been started
   isCompleted: boolean;
   rewardExpiry: number | null;
-  isStarted: boolean;
+  isStarted: boolean; // True if a category has been selected
 }
 
 export function useWeeklyChallenge() {
@@ -52,13 +52,15 @@ export function useWeeklyChallenge() {
     if (storedStateJSON) {
       const storedState: WeeklyChallengeState = JSON.parse(storedStateJSON);
       
-      const isChallengeActive = storedState.expiry && now < storedState.expiry;
+      // A challenge is active if it's been generated but not necessarily started
+      const isChallengeSelected = storedState.isStarted && !storedState.isCompleted;
+      const isChallengeRunning = storedState.expiry && now < storedState.expiry;
       const isRewardActive = storedState.isCompleted && storedState.rewardExpiry && now < storedState.rewardExpiry;
 
-      if (isChallengeActive || isRewardActive) {
+      if (isChallengeSelected || isChallengeRunning || isRewardActive) {
         setState({ ...storedState, isLoading: false });
       } else {
-        // Challenge or reward has expired, reset to selection screen
+        // Challenge has expired, or reward has expired
         resetChallengeState();
       }
     } else {
@@ -75,10 +77,9 @@ export function useWeeklyChallenge() {
     setState(s => ({ ...s, isLoading: true }));
     try {
       const result = await generateWeeklyChallenge({ category });
-      const newExpiry = Date.now() + CHALLENGE_DURATION;
       const newState: WeeklyChallengeState = {
         challenge: result.challenge,
-        expiry: newExpiry,
+        expiry: null, // Timer doesn't start until user clicks "Start"
         isCompleted: false,
         rewardExpiry: null,
         isStarted: true,
@@ -90,6 +91,18 @@ export function useWeeklyChallenge() {
       resetChallengeState();
     }
   }, [resetChallengeState]);
+  
+  const beginChallenge = useCallback(() => {
+    if (!state.challenge || state.expiry) return;
+
+    const newExpiry = Date.now() + CHALLENGE_DURATION;
+    const runningState: WeeklyChallengeState = {
+      ...state,
+      expiry: newExpiry,
+    };
+    localStorage.setItem('weeklyChallengeState', JSON.stringify(runningState));
+    setState({ ...runningState, isLoading: false });
+  }, [state]);
 
 
   const completeChallenge = useCallback(() => {
@@ -118,5 +131,5 @@ export function useWeeklyChallenge() {
     }
   }, [resetChallengeState]);
 
-  return { ...state, completeChallenge, startNewChallenge, resetChallenge, resetChallengeState };
+  return { ...state, completeChallenge, startNewChallenge, resetChallenge, resetChallengeState, beginChallenge };
 }

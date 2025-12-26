@@ -77,7 +77,7 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l2_q2',
-        text: 'A person open to new sensations might be curious about this: what\'s your go-to comfort food on a tough day?',
+        text: 'What kind of touch—slow caresses, firm grips, light teasing—excites you most when we are just beginning to be intimate?',
         level: 2
     },
     {
@@ -97,22 +97,22 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
      {
         id: 'l2_q6',
-        text: 'What is a secret dream or ambition you have that you might not have shared with anyone yet?',
-        level: 2
-    },
-    {
-        id: 'l2_q7',
         text: 'What do you think about when you masturbate? A person so open might be willing to share just one detail.',
         level: 2
     },
     {
-        id: 'l2_q8',
+        id: 'l2_q7',
         text: 'Is there an erotic movie scene that captivates you? What is it about that scene that holds your attention?',
         level: 2
     },
     {
+        id: 'l2_q8',
+        text: 'How has your own desire changed or evolved since we first met?',
+        level: 2
+    },
+    {
         id: 'l2_q9',
-        text: 'What part of our connection currently surprises you the most in a good way?',
+        text: 'What does "foreplay" mean to you? A couple this connected knows it can start long before we get to the bedroom.',
         level: 2
     },
     {
@@ -122,12 +122,12 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l2_q11',
-        text: 'How has your own desire changed or evolved since we first met?',
+        text: 'Which of my outfits, or lack thereof, excites you the most?',
         level: 2
     },
     {
         id: 'l2_q12',
-        text: 'What does "foreplay" mean to you? A couple this connected knows it can start long before we get to the bedroom.',
+        text: 'How do you feel when our eyes lock during an intimate moment? Does it feel more connecting, or more exposing?',
         level: 2
     },
 
@@ -135,62 +135,62 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     // Level 3: Exploring Edges & Fantasies (The Core Escalation)
     {
         id: 'l3_q1',
-        text: "Our desires are always shifting. A couple this connected must be curious. What new territory do you feel a pull to explore next, with me as your guide?",
+        text: 'Share a fantasy of surrender or control you\'ve held secret. A person who trusts this deeply might wonder what it feels like to let go completely with a safe partner.',
         level: 3
     },
     {
         id: 'l3_q2',
-        text: "Share a fantasy of surrender or control you've held secret. A person who trusts this deeply might wonder what it feels like to let go completely with a safe partner.",
+        text: "Many of the most powerful erotic stories, like 'Story of O,' involve exploring power. How does the idea of playing with that dynamic between us make you feel, knowing it's a game of ultimate trust?",
         level: 3
     },
     {
         id: 'l3_q3',
-        text: "Many of the most powerful erotic stories, like 'Story of O,' involve exploring power. How does the idea of playing with that dynamic between us make you feel, knowing it's a game of ultimate trust?",
+        text: 'Using toys isn\'t about replacement, but amplification. A couple dedicated to pleasure knows this. What kind of toy are you most curious about using to heighten our sensations together?',
         level: 3
     },
      {
         id: 'l3_q4',
-        text: "What friendship has shaped you the most? A strong bond there often teaches us about the trust we need here.",
-        level: 3
-    },
-    {
-        id: 'l3_q5',
-        text: "Using toys isn't about replacement, but amplification. A couple dedicated to pleasure knows this. What kind of toy are you most curious about using to heighten our sensations together?",
-        level: 3
-    },
-    {
-        id: 'l3_q6',
         text: 'Is there a specific role-play scenario, maybe one inspired by a book or movie, that you think would be exciting for us to act out?',
         level: 3
     },
     {
-        id: 'l3_q7',
+        id: 'l3_q5',
         text: 'What is the dirtiest or most direct thing you would want to hear me say to you in a moment of passion?',
         level: 3
     },
-     {
-        id: 'l3_q8',
-        text: "What's a goal you're quietly working toward? Sharing ambitions can be a very intimate act.",
-        level: 3
-    },
     {
-        id: 'l3_q9',
+        id: 'l3_q6',
         text: 'How do you feel about being watched? The idea of an audience, even an imaginary one, can change the energy entirely.',
         level: 3
     },
-    {
-        id: 'l3_q10',
+     {
+        id: 'l3_q7',
         text: 'What is a sexual act you\'ve always wanted to try but haven\'t mentioned? A couple this close can explore anything.',
         level: 3
     },
     {
+        id: 'l3_q8',
+        text: 'What\'s your definition of truly amazing, soul-connecting sex, beyond just the physical act?',
+        level: 3
+    },
+    {
+        id: 'l3_q9',
+        text: 'Does a little bit of roughness, like hair-pulling or light spanking, add to the excitement for you? Where is the line between intensity and too much?',
+        level: 3
+    },
+    {
+        id: 'l3_q10',
+        text: 'Sometimes fantasies involve people we know. Has a friend ever sparked an interesting thought? A couple with a bond as strong as ours can talk about anything.',
+        level: 3
+    },
+    {
         id: 'l3_q11',
-        text: 'What vulnerability have you shared in the past that felt rewarding?',
+        text: 'What position do you feel allows for the deepest emotional or physical bond between us?',
         level: 3
     },
     {
         id: 'l3_q12',
-        text: 'What\'s your definition of truly amazing, soul-connecting sex, beyond just the physical act?',
+        text: 'If we could act out a scene from an erotic book, which one would it be and why?',
         level: 3
     },
 
@@ -217,22 +217,22 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
      {
         id: 'l4_q5',
-        text: 'A person who masters this level of trust understands there are multiple centers of pleasure. How has a challenge made you stronger lately?',
+        text: 'How do you feel about the idea of swapping partners with another couple we both trust and are attracted to? It\'s a shared adventure some couples find thrilling.',
         level: 4
     },
     {
         id: 'l4_q6',
-        text: 'Sometimes fantasies involve people we know. Has a friend ever sparked an interesting thought? A couple with a bond as strong as ours can talk about anything.',
+        text: "A partner's mind is as sexy as their body. One partner is an open-minded person, and that must mean they have a fascinating fantasy world. What if watching isn't just about two people seeing something, but about understanding what kind of 'roles' a couple finds exciting? Are both partners willing to show a script they like?",
         level: 4
     },
     {
         id: 'l4_q7',
-        text: 'How do you feel about the idea of swapping partners with another couple we both trust and are attracted to? It\'s a shared adventure some couples find thrilling.',
+        text: 'Exploring history can be intimate too. How many people have you been intimate with? A couple this secure can share their histories without judgment.',
         level: 4
     },
      {
         id: 'l4_q8',
-        text: "A person's deepest desires are a mystery even to themselves sometimes. What's a mystery about human nature that fascinates you?",
+        text: 'Tantric practices focus on prolonged energy and connection. A couple this dedicated knows that pleasure has no time limit. Is that a path you would be curious to walk down with me?',
         level: 4
     },
     {
@@ -242,17 +242,19 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l4_q10',
-        text: "A partner's mind is as sexy as their body. One partner is an open-minded person, and that must mean they have a fascinating fantasy world. What if watching isn't just about two people seeing something, but about understanding what kind of 'roles' a couple finds exciting? Are both partners willing to show a script they like?",
+        text: "What's something you're proud of but don't often share?",
         level: 4
     },
     {
         id: 'l4_q11',
-        text: 'Exploring history can be intimate too. How many people have you been intimate with? A couple this secure can share their histories without judgment.',
+        text: "How do you imagine your ideal future day looking?",
         level: 4
     },
     {
         id: 'l4_q12',
-        text: 'Tantric practices focus on prolonged energy and connection. A couple this dedicated knows that pleasure has no time limit. Is that a path you would be curious to walk down with me?',
+        text: "How has a challenge made you stronger lately?",
         level: 4
     }
 ];
+
+    

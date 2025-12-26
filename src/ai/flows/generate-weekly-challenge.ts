@@ -10,12 +10,14 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { generatePersuasiveScript } from './generate-persuasive-script';
 
 // Define the schema for the output (the weekly challenge).
 const WeeklyChallengeOutputSchema = z.object({
   challenge: z.object({
     text: z.string().describe('The text of the sexy challenge.'),
     spicyLevel: z.number().min(1).max(3).describe('A spiciness rating from 1 to 3.'),
+    persuasionScript: z.string().describe('An AI-generated script to persuade the partner.'),
   }).describe('A randomly selected sexy challenge for the week.'),
 });
 export type WeeklyChallengeOutput = z.infer<typeof WeeklyChallengeOutputSchema>;
@@ -58,6 +60,13 @@ const generateWeeklyChallengeFlow = ai.defineFlow(
     const randomIndex = Math.floor(Math.random() * challenges.length);
     const challenge = challenges[randomIndex];
 
-    return {challenge};
+    const persuasionResult = await generatePersuasiveScript({ challengeText: challenge.text });
+
+    return {
+        challenge: {
+            ...challenge,
+            persuasionScript: persuasionResult.script,
+        }
+    };
   }
 );

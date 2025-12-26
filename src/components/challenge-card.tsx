@@ -2,11 +2,12 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Flame } from "lucide-react";
+import { CheckCircle, Clock, Heart, Flame, Sparkles } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
+import { Separator } from "./ui/separator";
 
 interface ChallengeCardProps {
   challenge: Challenge;
@@ -108,7 +109,20 @@ export function ChallengeCard({ challenge, expiry, onComplete, isCompleted }: Ch
         <p className="text-xl lg:text-2xl font-body leading-relaxed text-foreground/90">
           "{challenge.text}"
         </p>
-        <div className="flex flex-col items-center gap-4">
+
+        <Separator className="my-6" />
+        
+        <div className="text-left bg-muted/50 p-4 rounded-lg border border-border">
+          <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-muted-foreground">
+              <Sparkles className="h-4 w-4 text-accent" />
+              <span>Persuasion Prompt</span>
+          </div>
+          <p className="text-sm font-body italic text-foreground/80">
+            "{challenge.persuasionScript}"
+          </p>
+        </div>
+
+        <div className="flex flex-col items-center gap-4 pt-6">
             <div className="flex items-center gap-2 text-muted-foreground">
                 <Clock className="h-5 w-5" />
                 <span>Time Remaining</span>

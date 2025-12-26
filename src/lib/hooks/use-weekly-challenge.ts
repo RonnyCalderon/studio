@@ -9,6 +9,7 @@ const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
 export interface Challenge {
   text: string;
   spicyLevel: number;
+  persuasionScript: string;
 }
 
 export interface WeeklyChallengeState {
@@ -42,7 +43,7 @@ export function useWeeklyChallenge() {
       setState({ ...newState, isLoading: false });
     } catch (error) {
       console.error("Failed to generate challenge:", error);
-      setState(s => ({ ...s, isLoading: false, challenge: { text: "Error loading challenge. Try refreshing.", spicyLevel: 1 } }));
+      setState(s => ({ ...s, isLoading: false, challenge: { text: "Error loading challenge. Try refreshing.", spicyLevel: 1, persuasionScript: "Could not load a witty script, but how about you give it a try anyway?" } }));
     }
   }, []);
 

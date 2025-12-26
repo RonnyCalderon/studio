@@ -1,4 +1,4 @@
-import { Baby, Flame, Footprints, Gem, HeartPulse, KeyRound, LucideIcon, Mountain, Rabbit, Sprout } from "lucide-react";
+import { Baby, Flame, Footprints, Gem, HeartPulse, KeyRound, LucideIcon, Mountain, Rabbit, Sprout, Users } from "lucide-react";
 
 export interface Level {
     level: number;
@@ -21,41 +21,41 @@ export const levels: Level[] = [
         threshold: 3,
         title: "Playful Explorers",
         icon: Flame,
-        description: "You've done more than just try; you're actively exploring. You enjoy this, don't you? A couple this invested in pleasure knows that the most exciting discoveries are just ahead. You're building a habit of saying 'yes' together."
+        description: "You're building a habit of saying 'yes' together. You enjoy this, don't you? A couple this invested in pleasure knows that the most exciting discoveries are just ahead. You're not just trying new things; you're learning to enjoy the thrill of the unknown together."
     },
     {
         level: 3,
         threshold: 5,
         title: "Trailblazers",
         icon: Footprints,
-        description: "Look how far you've come. You're not just following a path; you're creating your own. A truly adventurous couple like you wouldn't stop now. The journey is the destination, and your map is getting bigger."
+        description: "Look how far you've come. You're creating your own map of desire. A truly adventurous couple like you wouldn't stop now, not when you've discovered the excitement of seeing each other through new eyes, maybe even through the eyes of a stranger."
     },
     {
         level: 4,
         threshold: 8,
         title: "Masters of Desire",
         icon: HeartPulse,
-        description: "This is becoming second nature. You've moved beyond simple curiosity and are now crafting your shared desires. You've learned to communicate in a language of pure pleasure. The 'rules' are starting to bend for you."
+        description: "This is becoming second nature. You've moved beyond simple curiosity and are now crafting your shared desires. You've learned to communicate in a language of pure pleasure, bending the 'rules' of the bedroom until they break. You're discovering that power can be the ultimate aphrodisiac."
     },
     {
         level: 5,
         threshold: 12,
         title: "Keepers of Secrets",
         icon: KeyRound,
-        description: "You now share intimate secrets that belong only to you two. A couple that trusts each other this deeply knows that some secrets are kept not with words, but with the body. You are unlocking new doors of what is possible."
+        description: "You now share intimate secrets that belong only to you. A couple that trusts each other this deeply knows that some secrets are kept not with words, but with the body. You are unlocking doors to pleasures others only whisper about, realizing that the ultimate trust is surrendering control of your body to your partner, even in its most vulnerable places."
     },
     {
         level: 6,
         threshold: 17,
         title: "Connoisseurs of Ecstasy",
         icon: Mountain,
-        description: "For you, the forbidden has become the familiar. An act that seems 'too much' for others is just another shade of pleasure for you. You've learned that total surrender and trust lead to the highest peaks, even exploring the final frontiers of intimacy."
+        description: "For you, the forbidden has become familiar. You've learned that your connection is so strong it can be shared, that the highest peaks are sometimes found when your circle of trust expands. You're not just a couple; you're the center of your own universe, and you decide who gets an invitation."
     },
     {
         level: 7,
         threshold: 25,
         title: "Legends of Lust",
-        icon: Gem,
-        description: "You have rewritten your own rules. There are no limits, only new rituals of pleasure. You've reached a level of connection where one partner's body is a sacred playground for the other, without taboos. You are the masters of your own universe of desire."
+        icon: Users,
+        description: "You have rewritten the rules of reality. Your pleasure is a performance, a ritual you can share within select circles. You have graduated from your private world into a larger one, where your shared connection is the anchor in a sea of new bodies and experiences. There are no limits, only new celebrations of desire in places built for that very purpose."
     }
 ];

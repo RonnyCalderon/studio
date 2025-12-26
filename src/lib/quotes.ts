@@ -17,7 +17,7 @@ export const quotes = [
   },
   {
     text: "Sex is not a performance, not a skill, not a game at which you win or lose. It's a journey of exploration.",
-    author: "Emily Nagoski"
+    author: "Emily Nagoski, 'Come as You Are'"
   },
   {
     text: "Each time you love, love as deeply as if it were forever.",
@@ -28,15 +28,15 @@ export const quotes = [
     author: "Anaïs Nin"
   },
   {
-    text: "You don't love someone for their looks, or their clothes, or for their fancy car, but because they sing a song only you can hear.",
-    author: "Oscar Wilde"
-  },
-  {
     text: "The erotic is a resource within each of us that lies in a deeply female and spiritual plane, firmly rooted in the power of our unexpressed or unrecognized feeling.",
-    author: "Audre Lorde"
+    author: "Audre Lorde, 'Uses of the Erotic'"
   },
   {
     text: "The most courageous act is still to think for yourself. Aloud.",
     author: "Coco Chanel"
+  },
+  {
+    text: "Your pleasure is the point. Healthy sexual pleasure is a crucial component of healthy sexuality, and healthy sexuality is a crucial component of a healthy life.",
+    author: "Emily Nagoski, 'Come as You Are'"
   }
 ];

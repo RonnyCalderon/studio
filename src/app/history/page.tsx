@@ -8,6 +8,7 @@ import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { levels, type Level } from "@/lib/levels";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useUser } from "@/context/user-provider";
 
 interface CompletedChallenge {
     challenge: Challenge;
@@ -41,6 +42,7 @@ const getCurrentLevel = (completedCount: number): [Level | null, Level | null] =
 };
 
 export default function HistoryPage() {
+    const { userName, partnerName } = useUser();
     const [history, setHistory] = useState<CompletedChallenge[]>([]);
     const [currentLevel, setCurrentLevel] = useState<Level | null>(null);
     const [nextLevel, setNextLevel] = useState<Level | null>(null);
@@ -72,9 +74,11 @@ export default function HistoryPage() {
         return history.slice(prevLevelThreshold, level.threshold);
     };
 
+    const pageTitle = userName && partnerName ? `${userName} & ${partnerName}'s Journey` : "Our Journey";
+
     return (
         <div className="container mx-auto py-8 space-y-8">
-            <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-2">Our Journey</h1>
+            <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-2">{pageTitle}</h1>
             <p className="text-muted-foreground">A record of our shared adventures and growth.</p>
 
             {currentLevel && (

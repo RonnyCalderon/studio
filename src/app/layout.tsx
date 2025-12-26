@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { AppLayout } from '@/components/app-layout';
 import { Toaster } from "@/components/ui/toaster";
+import { UserProvider } from '@/context/user-provider';
 
 export const metadata: Metadata = {
   title: 'Ignite Desire',
@@ -26,8 +27,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
       <body className="font-body antialiased">
-        <AppLayout>{children}</AppLayout>
-        <Toaster />
+        <UserProvider>
+          <AppLayout>{children}</AppLayout>
+          <Toaster />
+        </UserProvider>
       </body>
     </html>
   );

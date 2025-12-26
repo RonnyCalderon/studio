@@ -15,9 +15,16 @@ import { Home, User, Trophy, Flame } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';
+import { useUser } from '@/context/user-provider';
+import { UserOnboarding } from './user-onboarding';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { userIsKnown } = useUser();
+
+  if (!userIsKnown) {
+    return <UserOnboarding />;
+  }
 
   return (
     <SidebarProvider>

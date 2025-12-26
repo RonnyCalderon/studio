@@ -19,8 +19,10 @@ import {
   AlertDialogHeader, 
   AlertDialogTitle 
 } from "@/components/ui/alert-dialog";
+import { useUser } from "@/context/user-provider";
 
 export default function DashboardPage() {
+  const { partnerName } = useUser();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const { 
     challenge, 
@@ -69,12 +71,18 @@ export default function DashboardPage() {
     return <ChallengeSelection onSelectCategory={handleSelectCategory} />;
   }
 
+  const mainTitle = isRewardActive
+    ? "Your Reward"
+    : partnerName 
+    ? `An Invitation for ${partnerName}`
+    : "This Week's Invitation";
+
   return (
     <>
       <div className="container mx-auto py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary">
-              {isRewardActive ? "Your Reward" : "This Week's Invitation"}
+              {mainTitle}
           </h1>
           {challenge && !isRewardActive && (
             <Button onClick={resetChallenge} variant="outline" size="icon" aria-label="Get new challenge">

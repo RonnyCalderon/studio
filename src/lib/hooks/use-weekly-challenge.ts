@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { generateWeeklyChallenge, type Challenge } from '@/ai/flows/generate-weekly-challenge';
+import { useUser } from '@/context/user-provider';
 
 const CHALLENGE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
 const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
@@ -17,6 +18,7 @@ export interface WeeklyChallengeState {
 }
 
 export function useWeeklyChallenge() {
+  const { partnerName } = useUser();
   const [state, setState] = useState<WeeklyChallengeState & { isLoading: boolean }>({
     challenge: null,
     expiry: null,
@@ -70,7 +72,7 @@ export function useWeeklyChallenge() {
     setState(s => ({ ...s, isLoading: true }));
     try {
       // Since this is a static app, we call the logic directly.
-      const result = await generateWeeklyChallenge({ category });
+      const result = await generateWeeklyChallenge({ category, partnerName: partnerName || undefined });
 
       const newState: WeeklyChallengeState = {
         challenge: result.challenge,
@@ -85,7 +87,7 @@ export function useWeeklyChallenge() {
       console.error("Failed to generate challenge:", error);
       resetChallengeState();
     }
-  }, [resetChallengeState]);
+  }, [resetChallengeState, partnerName]);
   
   const beginChallenge = useCallback(() => {
     if (!state.challenge || state.expiry) return;

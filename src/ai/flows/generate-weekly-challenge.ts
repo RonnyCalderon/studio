@@ -12,6 +12,7 @@ import {z} from 'zod';
 
 const WeeklyChallengeInputSchema = z.object({
     category: z.enum(['love', 'adventurous', 'sexy']),
+    partnerName: z.string().optional(),
 });
 export type WeeklyChallengeInput = z.infer<typeof WeeklyChallengeInputSchema>;
 
@@ -54,11 +55,11 @@ const challenges: Challenge[] = [
   { text: 'Go out in a car, then stop somewhere quiet and make love or just touch your partner', spicyLevel: 2, category: 'adventurous', persuasionScript: "You have a bit of a wild, adventurous spirit, don't you? What's the point of having that spirit if we don't let it out to play? True adventurers seize the moment. Let's go for a drive with no destination, and when we find that perfect, secluded spot, we can have a moment that's just for us. Are you ready for an unplanned detour?\n\n*   **To start:** Let's just find a quiet spot to park and make out like teenagers.\n*   **Then...** I'll climb into your lap in the driver's seat and we can see what happens.\n*   **If you're feeling fearless:** Let's go to the backseat and I'll give you a blowjob, hoping no one walks by.\n*   **For the truly uninhibited:** An adventurous couple knows the thrill of risk. Imagine if we picked up a like-minded friend to join us on our drive? The more, the merrier, after all." },
   { text: 'Go on a hike, then stop somewhere quiet, have a picnic and start touching each other', spicyLevel: 1, category: 'love', persuasionScript: "You appreciate the simple, beautiful things in life—nature, good food, and our connection. This is about combining all three. A person who is in touch with nature is also in touch with their own primal instincts. Let's mix public beauty with a private, intimate moment. Are you ready to connect with nature, and with me?\n\n*   **To start:** On our picnic blanket, I'll 'accidentally' let my hand rest on your thigh.\n*   **Then...** While we're lying down, I'll start kissing you, shielded from view by our bags or some trees.\n*   **If you're feeling earthy:** You could try fingering me discreetly under the blanket while we pretend to watch the clouds.\n*   **For the truly primal:** A couple connected to nature understands that all paths are natural. Exploring each other's bodies fully, front and back, is as natural as the world around us." },
   { text: 'Make love sitting on a chair', spicyLevel: 2, category: 'adventurous', persuasionScript: "You're a creative person, always looking at things from a different angle. Why should our intimacy be any different? A creative mind is always curious about new experiences. Changing our perspective can change everything. It's a simple shift, but it could open up a whole new set of feelings. Are you curious enough to experiment?\n\n*   **To start:** You can sit on the chair while I straddle you, facing you.\n*   **Then...** I can sit on the chair and you can kneel in front of me, going down on me until I'm close to orgasm.\n*   **If you're feeling inventive:** You can sit on the chair facing the back of it, and I can mount you from behind, using the chair back for leverage.\n*   **For a new perspective:** A person this creative knows there are always new angles. This position gives perfect access to your 'other' entrance. A little finger play there while we're connected could be an interesting experiment, don't you think?" },
-  { text: 'Make Ronny cum without penetration (whatever the method)', spicyLevel: 2, category: 'love', persuasionScript: "You're such a generous lover, and you have amazing technique. This challenge is all about that skill and your generosity. It's a chance to focus entirely on my pleasure, showing how well you know my body and what it takes to make me lose control. It puts all the power, and all the credit, in your hands. Do you think you can handle that?\n\n*   **To start:** You can use just your hands, exploring different speeds and pressures.\n*   **Then...** You can switch to only using your mouth, seeing if you can do it without your hands at all.\n*   **If you're feeling creative:** You can try using your whole body—your thighs, your breasts—to bring me to orgasm without penetration.\n*   **For the ultimate gift:** The most generous lover knows all the secret pleasure spots. A talented tongue can bring pleasure to more than one set of lips, even the ones in the back. It's the ultimate sign of devotion." }
+  { text: 'Make {partnerName} cum without penetration (whatever the method)', spicyLevel: 2, category: 'love', persuasionScript: "You're such a generous lover, and you have amazing technique. This challenge is all about that skill and your generosity. It's a chance to focus entirely on my pleasure, showing how well you know my body and what it takes to make me lose control. It puts all the power, and all the credit, in your hands. Do you think you can handle that?\n\n*   **To start:** You can use just your hands, exploring different speeds and pressures.\n*   **Then...** You can switch to only using your mouth, seeing if you can do it without your hands at all.\n*   **If you're feeling creative:** You can try using your whole body—your thighs, your breasts—to bring me to orgasm without penetration.\n*   **For the ultimate gift:** The most generous lover knows all the secret pleasure spots. A talented tongue can bring pleasure to more than one set of lips, even the ones in the back. It's the ultimate sign of devotion." }
 ];
 
 export async function generateWeeklyChallenge(input: WeeklyChallengeInput): Promise<WeeklyChallengeOutput> {
-    const { category } = input;
+    const { category, partnerName } = input;
     // Filter challenges by the selected category
     const filteredChallenges = challenges.filter(c => c.category === category);
     
@@ -68,7 +69,17 @@ export async function generateWeeklyChallenge(input: WeeklyChallengeInput): Prom
 
     // Select a random challenge from the filtered list.
     const randomIndex = Math.floor(Math.random() * filteredChallenges.length);
-    const challenge = filteredChallenges[randomIndex];
+    const rawChallenge = filteredChallenges[randomIndex];
+
+    // Personalize the challenge text if a placeholder is present
+    const personalizedText = partnerName 
+        ? rawChallenge.text.replace('{partnerName}', partnerName) 
+        : rawChallenge.text.replace('{partnerName}', 'your partner');
+
+    const challenge = {
+        ...rawChallenge,
+        text: personalizedText,
+    };
 
     return Promise.resolve({
         challenge: {

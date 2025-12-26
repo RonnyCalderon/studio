@@ -4,84 +4,91 @@ export interface IntimacyQuestion {
 }
 
 export const intimacyQuestions: IntimacyQuestion[] = [
+    // Level 1: Foundation of Connection & Romance (Safe & Opening)
     {
         id: 'q1',
-        text: 'What stories about sex did you internalize growing up, and how do they whisper to your desires now?'
+        text: 'Beyond the obvious, what is a small, non-sexual act I do that makes you feel most loved and seen?'
     },
     {
         id: 'q2',
-        text: 'Can you recall the first spark of arousal you ever felt? What was that secret discovery like?'
+        text: 'Describe a moment, early in our relationship, when you felt a spark and knew this was something special.'
     },
     {
         id: 'q3',
-        text: 'Our desires are always shifting. What is a new territory you feel a pull to explore next, with me as your guide?'
+        text: 'If our love story was a movie, what would the title be, and what genre would it be?'
     },
     {
         id: 'q4',
-        text: 'Describe an outfit or a scent that makes you feel utterly sensual, ready to reveal a hidden side of yourself.'
+        text: 'What is a secret dream or ambition you have that you might not have shared with me yet?'
     },
     {
         id: 'q5',
-        text: 'What specific part of my body holds a special fascination for you, and why does it captivate you so?'
+        text: 'What non-sexual part of my body do you find uniquely beautiful or comforting?'
     },
+
+    // Level 2: Unveiling Sensuality & Desire (Getting Warmer)
     {
         id: 'q6',
-        text: 'How does our emotional closeness transform simple touch into something electrifying for you?'
+        text: 'What stories about sex did you internalize growing up, and how do they whisper to your desires now?'
     },
     {
         id: 'q7',
-        text: 'What words, whispered in the dark, can undo you completely?'
+        text: 'Can you recall the first spark of arousal you ever felt? What was that secret discovery like for you?'
     },
     {
         id: 'q8',
-        text: 'Share a fantasy of surrender or control you\'ve held secret. What would it feel like to let go with me?'
+        text: 'Describe an outfit or a scent that makes you feel utterly sensual, ready to reveal a hidden side of yourself.'
     },
     {
         id: 'q9',
-        text: 'Describe a memory of us where the intensity or vulnerability left a permanent mark on you.'
+        text: 'What words, whispered in the dark, can undo you completely? What tone of voice makes you melt?'
     },
     {
         id: 'q10',
-        text: 'Some of the most powerful erotic stories involve submission and dominance. How does the idea of exploring that power dynamic between us make you feel?'
+        text: 'How does our emotional closeness transform a simple touch into something electrifying for you?'
     },
+
+    // Level 3: Exploring Edges & Fantasies (The Core Escalation)
     {
         id: 'q11',
-        text: 'Many people have fantasies about being watched, or sharing their partner. What does the idea of an audience, even of one trusted friend, stir in you?'
+        text: 'Our desires are always shifting. A couple this connected must be curious. What new territory do you feel a pull to explore next, with me as your guide?'
     },
     {
         id: 'q12',
-        text: 'Pain and pleasure can be close companions. Is there a level of intensity or sensation that you find thrilling?'
+        text: 'Share a fantasy of surrender or control you\'ve held secret. A person who trusts this deeply might wonder what it feels like to let go completely with a safe partner.'
     },
     {
         id: 'q13',
-        text: 'What\'s an unexpected or unconventional thought that you find deeply erotic, something you might think is only your secret?'
+        text: 'Many of the most powerful erotic stories, like Story of O, involve submission. How does the idea of exploring that power dynamic between us make you feel, knowing it\'s a game of ultimate trust?'
     },
     {
         id: 'q14',
-        text: 'Using toys isn\'t about replacement, but amplification. Is there a type of toy or prop you\'re curious about using to heighten our sensations?'
+        text: 'A person open to new sensations might be curious about this: pain and pleasure can be close companions. Is there a level of intensity or sensation that you secretly find thrilling?'
     },
     {
         id: 'q15',
-        text: 'What forbidden or adventurous setting features in your most exciting sexual fantasies about us?'
+        text: 'Using toys isn\'t about replacement, but amplification. A couple dedicated to pleasure knows this. Is there a type of toy you\'re curious about using to heighten our sensations?'
     },
+
+    // Level 4: Normalizing Taboo & Expansion (Advanced Exploration)
     {
         id: 'q16',
-        text: 'Beyond the physical, what is the one thing that defines truly amazing, soul-connecting sex for you?'
+        text: 'A couple this in sync knows that pleasure isn\'t confined to just one place. Anal play is a profound act of trust. How do you feel about exploring that particular taboo together?'
     },
     {
         id: 'q17',
-        text: 'If we could explore a fetish together, safely and without judgment, what would you be curious to try?'
+        text: 'What if we imagined our connection as a performance? Many people have fantasies about being watched. What does the idea of an audience, even of one trusted friend, stir in you?'
     },
     {
         id: 'q18',
-        text: 'Role-playing can be a powerful key to unlocking hidden parts of ourselves. What kind of power-play scenario, even a subtle one, intrigues you?'
+        text: 'A couple who explores fantasies so openly might eventually wonder... what if we shared more than just fantasies? What if a trusted friend joined our \'cast\'? How does that story unfold in your mind?'
     },
     {
         id: 'q19',
-        text: 'Anal play is a common fantasy and a profound act of trust for many. How do you feel about exploring that particular taboo together?'
+        text: 'Adventurous couples often find their connection shines brighter in new social settings. What about visiting a place, like a libertine club, designed for like-minded explorers? What would that feel like?'
     },
     {
         id: 'q20',
-        text: 'What if we explored a fantasy involving another person? How would our connection serve as the anchor in that experience?'
+        text: 'Beyond the physical, what is the one thing that defines truly amazing, soul-connecting sex for you, now that we\'ve explored so much together?'
     }
 ];

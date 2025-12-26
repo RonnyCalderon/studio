@@ -96,6 +96,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
   const isTimerRunning = expiry !== null;
   const formattedPersuasionScript = challenge.persuasionScript
     .replace(/\n/g, '<br />')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*   /g, '<br />&bull; ')
     .replace(/<br \/>&bull;/, '&bull;');
 

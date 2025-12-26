@@ -6,6 +6,7 @@ import { Heart, Compass, Flame } from "lucide-react";
 import { type ChallengeCategory } from "@/lib/hooks/use-weekly-challenge";
 import { quotes } from "@/lib/quotes";
 import { useEffect, useState } from "react";
+import { AddToHomeScreen } from "./add-to-home-screen";
 
 interface ChallengeSelectionProps {
     onSelectCategory: (category: ChallengeCategory) => void;
@@ -76,6 +77,8 @@ export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps
                 </blockquote>
                 <p className="mt-4 text-right font-semibold text-primary">— {quote.author}</p>
             </div>
+            
+            <AddToHomeScreen />
         </div>
     );
 }

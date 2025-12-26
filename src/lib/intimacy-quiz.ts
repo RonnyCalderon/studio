@@ -67,6 +67,36 @@ export const intimacyQuestions: IntimacyQuestion[] = [
         text: 'If you could have dinner with any historical figure, who and why?',
         level: 1
     },
+    {
+        id: 'l1_q13',
+        text: 'What\'s your favorite time of day, and what makes it special?',
+        level: 1
+    },
+    {
+        id: 'l1_q14',
+        text: 'If you could pick any dessert right now, what would it be and why?',
+        level: 1
+    },
+    {
+        id: 'l1_q15',
+        text: 'What\'s your go-to comfort food on a tough day?',
+        level: 1
+    },
+    {
+        id: 'l1_q16',
+        text: 'What hobby would you try if time wasn\'t an issue?',
+        level: 1
+    },
+    {
+        id: 'l1_q17',
+        text: 'What\'s a fun memory from your last vacation?',
+        level: 1
+    },
+    {
+        id: 'l1_q18',
+        text: 'What\'s your favorite way to unwind after work?',
+        level: 1
+    },
 
 
     // Level 2: Unveiling Sensuality & Desire (Getting Warmer & Deeper)
@@ -128,6 +158,36 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     {
         id: 'l2_q12',
         text: 'How do you feel when our eyes lock during an intimate moment? Does it feel more connecting, or more exposing?',
+        level: 2
+    },
+    {
+        id: 'l2_q13',
+        text: 'What movie or book character do you relate to most?',
+        level: 2
+    },
+    {
+        id: 'l2_q14',
+        text: 'What\'s something surprising about your daily routine?',
+        level: 2
+    },
+    {
+        id: 'l2_q15',
+        text: 'If we could create a new tradition, what might it be?',
+        level: 2
+    },
+    {
+        id: 'l2_q16',
+        text: 'What\'s a value you hold that guides your choices?',
+        level: 2
+    },
+    {
+        id: 'l2_q17',
+        text: 'What friendship has shaped you the most?',
+        level: 2
+    },
+    {
+        id: 'l2_q18',
+        text: 'Do you remember the first time you felt turned on? What emotions did it evoke?',
         level: 2
     },
 
@@ -193,6 +253,36 @@ export const intimacyQuestions: IntimacyQuestion[] = [
         text: 'If we could act out a scene from an erotic book, which one would it be and why?',
         level: 3
     },
+    {
+        id: 'l3_q13',
+        text: 'What\'s something you\'re proud of but don\'t often share?',
+        level: 3
+    },
+    {
+        id: 'l3_q14',
+        text: 'How do you imagine your ideal future day looking?',
+        level: 3
+    },
+    {
+        id: 'l3_q15',
+        text: 'What fear have you overcome that surprised you?',
+        level: 3
+    },
+    {
+        id: 'l3_q16',
+        text: 'How has a challenge made you stronger lately?',
+        level: 3
+    },
+    {
+        id: 'l3_q17',
+        text: 'What part of our connection surprises you the most?',
+        level: 3
+    },
+    {
+        id: 'l3_q18',
+        text: 'What\'s a turn-off that disconnects you, and how can we avoid it?',
+        level: 3
+    },
 
     // Level 4: Normalizing Taboo & Expansion (Advanced Exploration)
     {
@@ -242,7 +332,7 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l4_q10',
-        text: "What's something you're proud of but don't often share?",
+        text: 'What\'s something you\'re proud of but don\'t often share?',
         level: 4
     },
     {
@@ -253,6 +343,36 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     {
         id: 'l4_q12',
         text: "How has a challenge made you stronger lately?",
+        level: 4
+    },
+    {
+        id: 'l4_q13',
+        text: 'What inner strength do you admire in yourself?',
+        level: 4
+    },
+    {
+        id: 'l4_q14',
+        text: 'How do past experiences shape your hopes now?',
+        level: 4
+    },
+    {
+        id: 'l4_q15',
+        text: 'What\'s a deeper dream you\'ve never voiced aloud?',
+        level: 4
+    },
+    {
+        id: 'l4_q16',
+        text: 'What celebrity or fictional character embodies a fantasy for you?',
+        level: 4
+    },
+    {
+        id: 'l4_q17',
+        text: 'If you could have sex anywhere in the world, where and why?',
+        level: 4
+    },
+    {
+        id: 'l4_q18',
+        text: 'Have you fantasized about someone else during sex—what sparked it?',
         level: 4
     }
 ];

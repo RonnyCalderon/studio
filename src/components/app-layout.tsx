@@ -11,7 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Home, User, Trophy, Flame } from 'lucide-react';
+import { Home, User, Trophy, Flame, Gamepad2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';
@@ -50,6 +50,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <Link href="/">
                   <Home />
                   <span>Dashboard</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === '/games'}
+                tooltip={{ children: 'Games' }}
+              >
+                <Link href="/games">
+                  <Gamepad2 />
+                  <span>Games</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

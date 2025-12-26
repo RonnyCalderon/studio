@@ -42,5 +42,41 @@ export const quotes = [
   {
     text: "I pull him deeper into my mouth so I can feel him at the back of my throat and then to the front again. My tongue swirls around the end. He’s my very own Christian Grey-flavored popsicle. I suck harder and harder.…",
     author: "E.L. James (Fifty Shades of Grey)"
-  }
+  },
+  {
+    text: "We fucked in bathrooms and alleys bold as boys, bent over porcelain sinks... When someone saw us by accident, I let them be embarrassed.",
+    author: "Michelle Tea (Valencia)"
+  },
+  {
+    text: "I want to feel you deep inside me. I want to hear you groan and pant and moan as you plunge deeper and deeper.",
+    author: "Pepper Winters"
+  },
+  {
+    text: "Beauty, you must learn it. You must accept and yield, and then you shall see everything is simple.",
+    author: "Anne Rice (The Claiming of Sleeping Beauty)"
+  },
+  {
+    text: "This is me, Ana. All of me...and I'm all yours. What do I have to do to make you realize that? To make you see that I want you any way I can get you.",
+    author: "E.L. James (Fifty Shades of Grey)"
+  },
+  {
+    text: "You forget who submits, Eva,” he said gruffly. “I've given up control for you. I've bent and adjusted for you. I'll do anything to keep you and make you happy.",
+    author: "Sylvia Day (Bared to You)"
+  },
+  {
+    text: "I want it to happen in my presence, I want her to do it as I wish, I want her to give herself where I give myself. It’s via Hélène Lagonelle’s body, through it, that the ultimate pleasure would pass from him to me. A pleasure unto death.",
+    author: "Marguerite Duras (The Lover)"
+  },
+  {
+    text: "I had a feeling that Pandora’s box contained the mysteries of woman’s sensuality, so different from a man’s, and for which man’s language was so inadequate. The language of sex had yet to be invented. The language of the senses was yet to be explored.",
+    author: "Anaïs Nin (Delta of Venus)"
+  },
+  {
+    text: "Only the united beat of sex and heart together can create ecstasy.",
+    author: "Anaïs Nin (Delta of Venus)"
+  },
+  {
+    text: "The three of us,” Sean murmured.",
+    author: "Melanie Hitchens (Handled: At The Night Club Series: Book 2)"
+  },
 ]

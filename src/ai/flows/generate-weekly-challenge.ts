@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview This file defines a Genkit flow to generate a random weekly sexy challenge for couples.
  *

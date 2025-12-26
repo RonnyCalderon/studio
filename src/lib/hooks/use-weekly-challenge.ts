@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { generateWeeklyChallenge } from '@/ai/flows/generate-weekly-challenge';
+import { type Challenge } from '@/lib/hooks/use-weekly-challenge';
 
 const CHALLENGE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
 const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
@@ -76,7 +76,20 @@ export function useWeeklyChallenge() {
   const startNewChallenge = useCallback(async (category: ChallengeCategory) => {
     setState(s => ({ ...s, isLoading: true }));
     try {
-      const result = await generateWeeklyChallenge({ category });
+      const response = await fetch('/api/generate-challenge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate challenge');
+      }
+
+      const result = await response.json();
+
       const newState: WeeklyChallengeState = {
         challenge: result.challenge,
         expiry: null, // Timer doesn't start until user clicks "Start"

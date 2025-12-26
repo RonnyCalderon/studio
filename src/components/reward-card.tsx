@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 
 interface RewardCardProps {
   expiry: number;
+  onRewardEnd: () => void;
 }
 
-const Countdown = ({ expiry }: { expiry: number }) => {
+const Countdown = ({ expiry, onEnd }: { expiry: number, onEnd: () => void }) => {
     // Re-using the Countdown from ChallengeCard - could be extracted to a separate component
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -26,6 +27,7 @@ const Countdown = ({ expiry }: { expiry: number }) => {
             if (distance < 0) {
                 clearInterval(timer);
                 setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                onEnd();
                 return;
             }
 
@@ -38,7 +40,7 @@ const Countdown = ({ expiry }: { expiry: number }) => {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [expiry]);
+    }, [expiry, onEnd]);
 
     return (
         <div className="flex items-center gap-4 text-center">
@@ -90,7 +92,7 @@ const StarRating = ({ reward, onRate }: { reward: string, onRate: (rating: numbe
     );
 };
 
-export function RewardCard({ expiry }: RewardCardProps) {
+export function RewardCard({ expiry, onRewardEnd }: RewardCardProps) {
     const [reward, setReward] = useState('');
     const rewardImage = placeholderImages.find(p => p.imageHint.includes('gift'));
 
@@ -135,7 +137,7 @@ export function RewardCard({ expiry }: RewardCardProps) {
                         <Clock className="h-5 w-5" />
                         <span>Claim it before it expires!</span>
                     </div>
-                    <Countdown expiry={expiry} />
+                    <Countdown expiry={expiry} onEnd={onRewardEnd} />
                 </div>
             </CardContent>
              <CardFooter className="p-6 bg-muted/50 flex flex-col items-center justify-center gap-4">

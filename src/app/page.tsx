@@ -18,7 +18,8 @@ export default function DashboardPage() {
     isLoading,
     isStarted,
     completeChallenge,
-    startNewChallenge
+    startNewChallenge,
+    resetChallenge
   } = useWeeklyChallenge();
 
   const now = Date.now();
@@ -61,17 +62,13 @@ export default function DashboardPage() {
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary">
             {isRewardActive ? "Your Reward" : "This Week's Invitation"}
         </h1>
-        <Button onClick={() => {
-            if (window.confirm("Are you sure you want to get a new challenge? This will reset your current one.")) {
-                startNewChallenge(challenge?.category as ChallengeCategory || 'love');
-            }
-        }} variant="outline" size="icon" aria-label="Get new challenge">
+        <Button onClick={resetChallenge} variant="outline" size="icon" aria-label="Get new challenge">
             <RefreshCw className="h-4 w-4" />
         </Button>
       </div>
 
       {isRewardActive ? (
-        <RewardCard expiry={rewardExpiry!} />
+        <RewardCard expiry={rewardExpiry!} onRewardEnd={resetChallenge} />
       ) : (
         challenge && expiry && (
           <ChallengeCard 

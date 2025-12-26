@@ -33,6 +33,18 @@ export function useWeeklyChallenge() {
     isLoading: true,
   });
 
+  const resetChallengeState = useCallback(() => {
+    const resetState: WeeklyChallengeState = { 
+        challenge: null, 
+        expiry: null, 
+        isCompleted: false, 
+        rewardExpiry: null, 
+        isStarted: false 
+    };
+    localStorage.setItem('weeklyChallengeState', JSON.stringify(resetState));
+    setState({ ...resetState, isLoading: false });
+  }, []);
+
   const loadState = useCallback(() => {
     const storedStateJSON = localStorage.getItem('weeklyChallengeState');
     const now = Date.now();
@@ -40,7 +52,6 @@ export function useWeeklyChallenge() {
     if (storedStateJSON) {
       const storedState: WeeklyChallengeState = JSON.parse(storedStateJSON);
       
-      // If challenge exists and is not expired, or is completed but reward is active
       const isChallengeActive = storedState.expiry && now < storedState.expiry;
       const isRewardActive = storedState.isCompleted && storedState.rewardExpiry && now < storedState.rewardExpiry;
 
@@ -48,21 +59,13 @@ export function useWeeklyChallenge() {
         setState({ ...storedState, isLoading: false });
       } else {
         // Challenge or reward has expired, reset to selection screen
-        const resetState = { 
-            challenge: null, 
-            expiry: null, 
-            isCompleted: false, 
-            rewardExpiry: null, 
-            isStarted: false 
-        };
-        localStorage.setItem('weeklyChallengeState', JSON.stringify(resetState));
-        setState({ ...resetState, isLoading: false });
+        resetChallengeState();
       }
     } else {
       // No state, go to selection screen
       setState(s => ({ ...s, isLoading: false, isStarted: false }));
     }
-  }, []);
+  }, [resetChallengeState]);
 
   useEffect(() => {
     loadState();
@@ -73,7 +76,7 @@ export function useWeeklyChallenge() {
     try {
       const result = await generateWeeklyChallenge({ category });
       const newExpiry = Date.now() + CHALLENGE_DURATION;
-      const newState = {
+      const newState: WeeklyChallengeState = {
         challenge: result.challenge,
         expiry: newExpiry,
         isCompleted: false,
@@ -84,16 +87,9 @@ export function useWeeklyChallenge() {
       setState({ ...newState, isLoading: false });
     } catch (error) {
       console.error("Failed to generate challenge:", error);
-      const errorState = { 
-          challenge: null, 
-          expiry: null, 
-          isCompleted: false, 
-          rewardExpiry: null, 
-          isStarted: false 
-      };
-      setState({ ...errorState, isLoading: false });
+      resetChallengeState();
     }
-  }, []);
+  }, [resetChallengeState]);
 
 
   const completeChallenge = useCallback(() => {
@@ -116,5 +112,11 @@ export function useWeeklyChallenge() {
     setState({ ...completedState, isLoading: false });
   }, [state]);
 
-  return { ...state, completeChallenge, startNewChallenge };
+  const resetChallenge = useCallback(() => {
+    if (window.confirm("Are you sure you want to start a new challenge? This will reset your current progress.")) {
+      resetChallengeState();
+    }
+  }, [resetChallengeState]);
+
+  return { ...state, completeChallenge, startNewChallenge, resetChallenge };
 }

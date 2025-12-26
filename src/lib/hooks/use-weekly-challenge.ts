@@ -1,19 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { type Challenge } from '@/lib/hooks/use-weekly-challenge';
+import { generateWeeklyChallenge, type Challenge } from '@/ai/flows/generate-weekly-challenge';
 
 const CHALLENGE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
 const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
 
 export type ChallengeCategory = 'love' | 'adventurous' | 'sexy';
-
-export interface Challenge {
-  text: string;
-  spicyLevel: number;
-  persuasionScript: string;
-  category: ChallengeCategory;
-}
 
 export interface WeeklyChallengeState {
   challenge: Challenge | null;
@@ -76,19 +69,8 @@ export function useWeeklyChallenge() {
   const startNewChallenge = useCallback(async (category: ChallengeCategory) => {
     setState(s => ({ ...s, isLoading: true }));
     try {
-      const response = await fetch('/api/generate-challenge', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ category }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate challenge');
-      }
-
-      const result = await response.json();
+      // Since this is a static app, we call the logic directly.
+      const result = await generateWeeklyChallenge({ category });
 
       const newState: WeeklyChallengeState = {
         challenge: result.challenge,

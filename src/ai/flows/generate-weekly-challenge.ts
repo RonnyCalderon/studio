@@ -1,20 +1,26 @@
 /**
- * @fileOverview This file defines a Genkit flow to generate a random weekly sexy challenge for couples.
+ * @fileOverview This file defines a client-side function to generate a random weekly sexy challenge for couples.
  *
  * It exports:
  * - `generateWeeklyChallenge`: An async function that returns a randomly selected challenge from a given category.
  * - `WeeklyChallengeInput`: The input type, containing the category.
  * - `WeeklyChallengeOutput`: The output type, containing the challenge text and its spicy level.
+ * - `Challenge`: The interface for a single challenge object.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const WeeklyChallengeInputSchema = z.object({
     category: z.enum(['love', 'adventurous', 'sexy']),
 });
 export type WeeklyChallengeInput = z.infer<typeof WeeklyChallengeInputSchema>;
 
+export interface Challenge {
+  text: string;
+  spicyLevel: number;
+  persuasionScript: string;
+  category: string;
+}
 
 // Define the schema for the output (the weekly challenge).
 const WeeklyChallengeOutputSchema = z.object({
@@ -28,7 +34,7 @@ const WeeklyChallengeOutputSchema = z.object({
 export type WeeklyChallengeOutput = z.infer<typeof WeeklyChallengeOutputSchema>;
 
 // Define the list of challenges with spicy levels and persuasion scripts.
-const challenges = [
+const challenges: Challenge[] = [
   { text: 'Touch each other in a public place', spicyLevel: 2, category: 'adventurous', persuasionScript: "You know how we both have that little rebellious streak, the part of us that loves a good secret? Let's be partners in crime. Are you brave enough to share a thrilling secret that only we know about next time we're out? It's about being bold together.\n\n*   **To start:** When we're sitting somewhere, let our knees or feet touch under the table and just hold the contact.\n*   **Then...** You could slide your hand onto my thigh, maybe giving it a little squeeze when no one's looking.\n*   **If you're feeling wild:** How about a discreet hand on my crotch under a jacket or tablecloth? Just to see if we can get away with it." },
   { text: 'Watch a sexy movie like Shame', spicyLevel: 1, category: 'sexy', persuasionScript: "You're someone who appreciates art and exploring deeper themes, right? I want to explore not just a film, but our reactions to it, together. It’s about being intellectually and emotionally open. What if we watch something that's not just sexy, but intense and thought-provoking about desire? It could open up some interesting conversations for us.\n\n*   **To start:** Let's just watch the movie, but while cuddling close under a blanket.\n*   **Then...** During an intense scene, you could start caressing my arm or leg, just a light touch to see how I react.\n*   **If you're feeling inspired:** You could start kissing my neck or whispering in my ear what the scene is making you think about doing to me." },
   { text: 'Use the couple sextoy while we make love', spicyLevel: 3, category: 'sexy', persuasionScript: "You're always so present and passionate when we're together. I think a person like you, who is so attuned to pleasure, would be curious about what new levels we can reach. It's not about replacing what we have, but amplifying it. Are you open to exploring that new peak with me?\n\n*   **To start:** Let's just introduce the toy, letting it rest against one of us while we're kissing and touching.\n*   **Then...** You can use it on me while I'm on top, so I can control the intensity while we're connected.\n*   **If you're feeling adventurous:** We can try a position where you have full control of the toy on both of us, exploring all its settings while we make love." },
@@ -52,16 +58,7 @@ const challenges = [
 ];
 
 export async function generateWeeklyChallenge(input: WeeklyChallengeInput): Promise<WeeklyChallengeOutput> {
-  return generateWeeklyChallengeFlow(input);
-}
-
-const generateWeeklyChallengeFlow = ai.defineFlow(
-  {
-    name: 'generateWeeklyChallengeFlow',
-    inputSchema: WeeklyChallengeInputSchema,
-    outputSchema: WeeklyChallengeOutputSchema,
-  },
-  async ({ category }) => {
+    const { category } = input;
     // Filter challenges by the selected category
     const filteredChallenges = challenges.filter(c => c.category === category);
     
@@ -73,10 +70,9 @@ const generateWeeklyChallengeFlow = ai.defineFlow(
     const randomIndex = Math.floor(Math.random() * filteredChallenges.length);
     const challenge = filteredChallenges[randomIndex];
 
-    return {
+    return Promise.resolve({
         challenge: {
             ...challenge,
         }
-    };
-  }
-);
+    });
+}

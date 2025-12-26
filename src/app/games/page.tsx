@@ -3,7 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScratchCardGame } from "@/components/scratch-card-game";
 import { PositionDiceGame } from "@/components/position-dice-game";
-import { Wand, Dice6 } from "lucide-react";
+import { IntimacyQuizGame } from "@/components/intimacy-quiz-game";
+import { Wand, Dice6, HeartHandshake } from "lucide-react";
 
 export default function GamesPage() {
   return (
@@ -16,14 +17,18 @@ export default function GamesPage() {
       </div>
 
       <Tabs defaultValue="scratch-card" className="w-full max-w-4xl mx-auto">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="scratch-card">
             <Wand className="mr-2 h-5 w-5" />
             Scratch of Fate
           </TabsTrigger>
           <TabsTrigger value="position-dice">
             <Dice6 className="mr-2 h-5 w-5" />
-            Position Dice
+            Love Dice
+          </TabsTrigger>
+          <TabsTrigger value="intimacy-quiz">
+            <HeartHandshake className="mr-2 h-5 w-5" />
+            Intimacy Quiz
           </TabsTrigger>
         </TabsList>
         <TabsContent value="scratch-card" className="mt-8">
@@ -31,6 +36,9 @@ export default function GamesPage() {
         </TabsContent>
         <TabsContent value="position-dice" className="mt-8">
           <PositionDiceGame />
+        </TabsContent>
+        <TabsContent value="intimacy-quiz" className="mt-8">
+          <IntimacyQuizGame />
         </TabsContent>
       </Tabs>
     </div>

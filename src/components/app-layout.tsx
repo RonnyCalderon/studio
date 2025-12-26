@@ -11,7 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Home, User, Trophy, Flame, Gamepad2 } from 'lucide-react';
+import { Home, User, Trophy, Flame, Gamepad2, HeartHandshake } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';

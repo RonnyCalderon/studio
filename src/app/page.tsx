@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from "react";
 import { ChallengeCard } from "@/components/challenge-card";
 import { RewardCard } from "@/components/reward-card";
 import { useWeeklyChallenge, type ChallengeCategory } from "@/lib/hooks/use-weekly-challenge";
@@ -8,8 +9,19 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { ChallengeSelection } from "@/components/challenge-selection";
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle 
+} from "@/components/ui/alert-dialog";
 
 export default function DashboardPage() {
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const { 
     challenge, 
     expiry, 
@@ -27,10 +39,9 @@ export default function DashboardPage() {
   const now = Date.now();
   const isRewardActive = isCompleted && rewardExpiry && now < rewardExpiry;
   
-  const handleComplete = () => {
-    if (window.confirm("Have you and your partner truly completed this challenge?")) {
-      completeChallenge();
-    }
+  const handleConfirmComplete = () => {
+    setShowConfirmation(false);
+    completeChallenge();
   };
 
   const handleSelectCategory = async (category: ChallengeCategory) => {
@@ -59,31 +70,51 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary">
-            {isRewardActive ? "Your Reward" : "This Week's Invitation"}
-        </h1>
-        {challenge && !isRewardActive && (
-          <Button onClick={resetChallenge} variant="outline" size="icon" aria-label="Get new challenge">
-              <RefreshCw className="h-4 w-4" />
-          </Button>
+    <>
+      <div className="container mx-auto py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary">
+              {isRewardActive ? "Your Reward" : "This Week's Invitation"}
+          </h1>
+          {challenge && !isRewardActive && (
+            <Button onClick={resetChallenge} variant="outline" size="icon" aria-label="Get new challenge">
+                <RefreshCw className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
+
+        {isRewardActive ? (
+          <RewardCard expiry={rewardExpiry!} onRewardEnd={resetChallengeState} onNewChallengeClick={resetChallengeState} />
+        ) : (
+          challenge && (
+            <ChallengeCard 
+              challenge={challenge}
+              expiry={expiry}
+              onComplete={() => setShowConfirmation(true)}
+              onStart={beginChallenge}
+              isCompleted={isCompleted}
+            />
+          )
         )}
       </div>
-
-      {isRewardActive ? (
-        <RewardCard expiry={rewardExpiry!} onRewardEnd={resetChallengeState} onNewChallengeClick={resetChallengeState} />
-      ) : (
-        challenge && (
-          <ChallengeCard 
-            challenge={challenge}
-            expiry={expiry}
-            onComplete={handleComplete}
-            onStart={beginChallenge}
-            isCompleted={isCompleted}
-          />
-        )
-      )}
-    </div>
+      
+      <AlertDialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-headline text-2xl">Challenge Conquered!</AlertDialogTitle>
+            <AlertDialogDescription className="text-base pt-2">
+              You've proven once again how deeply connected and adventurous you both are. 
+              Confirming this step unlocks your reward and continues your journey deeper. Are you ready?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Not Yet</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmComplete} className="bg-accent hover:bg-accent/90">
+              Claim Reward
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

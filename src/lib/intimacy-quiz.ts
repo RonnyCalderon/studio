@@ -216,7 +216,7 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l4_q5',
-        text: 'Beyond the physical, what is the one thing that defines truly amazing, soul-connecting sex for you, now that we\'ve explored so much together?',
+        text: 'If we were to write our own erotic story, what would the next chapter look like for us? Who else might be in it?',
         level: 4
     },
     {
@@ -241,7 +241,7 @@ export const intimacyQuestions: IntimacyQuestion[] = [
     },
     {
         id: 'l4_q10',
-        text: 'If we were to write our own erotic story, what would the next chapter look like for us? Who else might be in it?',
+        text: "A partner's mind is as sexy as their body. One partner is an open-minded person, and that must mean they have a fascinating fantasy world. What if watching isn't just about two people seeing something, but about understanding what kind of 'roles' a couple finds exciting? It’s about sharing a piece of their private desires to see where they overlap. Are both partners willing to show a script they like?",
         level: 4
     },
     {

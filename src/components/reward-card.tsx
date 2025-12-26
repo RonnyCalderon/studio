@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 interface RewardCardProps {
   expiry: number;
   onRewardEnd: () => void;
+  onNewChallengeClick: () => void;
 }
 
 const Countdown = ({ expiry, onEnd }: { expiry: number, onEnd: () => void }) => {
@@ -92,7 +93,7 @@ const StarRating = ({ reward, onRate }: { reward: string, onRate: (rating: numbe
     );
 };
 
-export function RewardCard({ expiry, onRewardEnd }: RewardCardProps) {
+export function RewardCard({ expiry, onRewardEnd, onNewChallengeClick }: RewardCardProps) {
     const [reward, setReward] = useState('');
     const rewardImage = placeholderImages.find(p => p.imageHint.includes('gift'));
 
@@ -143,6 +144,7 @@ export function RewardCard({ expiry, onRewardEnd }: RewardCardProps) {
              <CardFooter className="p-6 bg-muted/50 flex flex-col items-center justify-center gap-4">
                 <p className="text-sm text-muted-foreground">How much did you enjoy this reward?</p>
                 <StarRating reward={reward} onRate={handleRateReward} />
+                <Button onClick={onNewChallengeClick} className="mt-4" variant="secondary">Thank You! Start New Challenge</Button>
             </CardFooter>
         </Card>
     );

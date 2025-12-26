@@ -19,7 +19,8 @@ export default function DashboardPage() {
     isStarted,
     completeChallenge,
     startNewChallenge,
-    resetChallenge
+    resetChallenge,
+    resetChallengeState,
   } = useWeeklyChallenge();
 
   const now = Date.now();
@@ -68,7 +69,7 @@ export default function DashboardPage() {
       </div>
 
       {isRewardActive ? (
-        <RewardCard expiry={rewardExpiry!} onRewardEnd={resetChallenge} />
+        <RewardCard expiry={rewardExpiry!} onRewardEnd={resetChallengeState} onNewChallengeClick={resetChallengeState} />
       ) : (
         challenge && expiry && (
           <ChallengeCard 

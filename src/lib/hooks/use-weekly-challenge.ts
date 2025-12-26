@@ -118,5 +118,5 @@ export function useWeeklyChallenge() {
     }
   }, [resetChallengeState]);
 
-  return { ...state, completeChallenge, startNewChallenge, resetChallenge };
+  return { ...state, completeChallenge, startNewChallenge, resetChallenge, resetChallengeState };
 }

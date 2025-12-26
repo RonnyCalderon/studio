@@ -48,6 +48,12 @@ const nextConfig: NextConfig = {
         hostname: 'plus.unsplash.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'badgirlsbible.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

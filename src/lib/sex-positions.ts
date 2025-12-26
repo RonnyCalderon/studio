@@ -1,4 +1,4 @@
-import { placeholderImages, type ImagePlaceholder } from './placeholder-images';
+import { type ImagePlaceholder } from './placeholder-images';
 
 export interface SexPosition {
   name: string;
@@ -6,37 +6,115 @@ export interface SexPosition {
   image: ImagePlaceholder;
 }
 
-const sensualImages = placeholderImages.filter(p => p.imageHint.includes('sensual'));
-
 export const sexPositions: SexPosition[] = [
   {
-    name: 'The Lotus',
-    description: 'A position of intimacy and connection. Sit facing each other, legs wrapped around your partner\'s waist, and sync your movements and breath.',
-    image: sensualImages[0] || placeholderImages[0],
+    name: 'Back Seat Driver',
+    description:
+      'Start having powerful orgasms during sex using the Back Seat Driver sex position. It\'s easy to perform and will keep you deeply satisfied.',
+    image: {
+      id: 'back-seat-driver',
+      description: 'Back Seat Driver sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Back-Seat-Driver-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
   },
   {
-    name: 'The Standing Wheelbarrow',
-    description: 'A playful and adventurous position. One partner stands and holds the other\'s legs as they support themselves on their hands.',
-    image: sensualImages[1] || placeholderImages[0],
+    name: 'Bouncing Spoon',
+    description:
+      'The Bouncing Spoon is going to make you cum like a freight train. If you don\'t orgasm enough during sex, then try this position.',
+    image: {
+      id: 'bouncing-spoon',
+      description: 'Bouncing Spoon sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Bouncing-Spoon-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
   },
   {
-    name: 'The G-Whiz',
-    description: 'Designed for her pleasure. Lie on your back with your legs raised and resting on your partner\'s shoulders for deep G-spot stimulation.',
-    image: sensualImages[2] || placeholderImages[0],
+    name: 'Lap Dance',
+    description:
+      'Discover how to perform the Lap Dance sex position with your man to give both of you intense, body-shaking, toe-curling orgasms.',
+    image: {
+      id: 'lap-dance',
+      description: 'Lap Dance sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Lap-Dance-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
   },
   {
-    name: 'The Reverse Cowgirl',
-    description: 'A position of power and control. She straddles him, facing away, controlling the pace and depth of penetration.',
-    image: sensualImages[3] || placeholderImages[0],
+    name: 'Lotus',
+    description:
+      'Enjoy screaming orgasms using the Lotus sex position. Discover how to radically improve your sex life using the Lotus Blossom position.',
+    image: {
+      id: 'lotus',
+      description: 'Lotus sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Lotus-Sex-Position-Illustration.jpg',
+      imageHint: 'lotus position',
+    },
   },
   {
-    name: 'The Butter Churner',
-    description: 'For the flexible and adventurous. She lies on her back with legs straight up in the air as he kneels and enters from above.',
-    image: sensualImages[0] || placeholderImages[0],
+    name: 'Mastery',
+    description:
+      'The Mastery sex position is perfect if you like deeply intimate, bonding sex...and lots of orgasms. Discover how to perform it inside.',
+    image: {
+      id: 'mastery',
+      description: 'Mastery sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Mastery-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
   },
-   {
-    name: 'The 69',
-    description: 'A classic for a reason. Both partners give and receive oral pleasure simultaneously, a true feast for the senses.',
-    image: sensualImages[1] || placeholderImages[0],
+  {
+    name: 'See Saw',
+    description:
+      'Learn how to use the See Saw sex position to start having more passionate sex today. There are over 100 other position to learn on this site!',
+    image: {
+      id: 'see-saw',
+      description: 'See Saw sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/See-Saw-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
+  },
+  {
+    name: 'Side Ride',
+    description:
+      'Use the Side Ride sex position to enjoy incredible orgasms during sex. Your man is going to become addicted to this position very quickly.',
+    image: {
+      id: 'side-ride',
+      description: 'Side Ride sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Side-Ride-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
+  },
+  {
+    name: 'Side Saddle',
+    description:
+      'Spice it up using the intense Side Saddle sex position. Just follow these steps to make your man sexually obsessed with you and only you.',
+    image: {
+      id: 'side-saddle',
+      description: 'Side Saddle sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Side-Saddle-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
+  },
+  {
+    name: 'Sitting',
+    description:
+      'Use these sitting sex positions to keep your sex life red hot. You\'re also going to find it incredibly easy to orgasm in this position.',
+    image: {
+      id: 'sitting',
+      description: 'Sitting sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Sitting-Sex-Position.jpg',
+      imageHint: 'lap position',
+    },
+  },
+  {
+    name: 'Sofa Surprise',
+    description:
+      'Discover how to have intimate and bonding sex tonight using the easy-to-perform Sofa Surprise sex position. He will quickly become addicted.',
+    image: {
+      id: 'sofa-surprise',
+      description: 'Sofa Surprise sex position illustration',
+      imageUrl: 'https://badgirlsbible.com/wp-content/uploads/2017/07/Sofa-Surprise-Sex-Position-Illustration.jpg',
+      imageHint: 'lap position',
+    },
   },
 ];

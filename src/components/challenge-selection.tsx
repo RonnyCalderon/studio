@@ -8,6 +8,7 @@ import { quotes } from "@/lib/quotes";
 import { useEffect, useState } from "react";
 import { AddToHomeScreen } from "./add-to-home-screen";
 import { useUser } from "@/context/user-provider";
+import { smartShuffle } from "@/lib/utils";
 
 interface ChallengeSelectionProps {
     onSelectCategory: (category: ChallengeCategory) => void;
@@ -40,8 +41,7 @@ export function ChallengeSelection({ onSelectCategory }: ChallengeSelectionProps
 
     useEffect(() => {
         // Select a random quote on component mount
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        setQuote(randomQuote);
+        setQuote(smartShuffle('quotes', quotes));
     }, []);
 
     const title = userName ? `What are you in the mood for, ${userName}?` : "Choose Your Desire";

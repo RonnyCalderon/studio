@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { sexPositions, SexPosition } from '@/lib/sex-positions';
 import { RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { smartShuffle } from '@/lib/utils';
 
 export function ScratchCardGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,8 +15,7 @@ export function ScratchCardGame() {
   const [position, setPosition] = useState<SexPosition | null>(null);
 
   const getRandomPosition = useCallback(() => {
-    const randomIndex = Math.floor(Math.random() * sexPositions.length);
-    setPosition(sexPositions[randomIndex]);
+    setPosition(smartShuffle('sexPositions', sexPositions));
   }, []);
 
   const setupCanvas = useCallback(() => {

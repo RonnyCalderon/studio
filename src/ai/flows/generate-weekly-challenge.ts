@@ -9,6 +9,7 @@
  */
 
 import {z} from 'zod';
+import { smartShuffle } from '@/lib/utils';
 
 const WeeklyChallengeInputSchema = z.object({
     category: z.enum(['love', 'adventurous', 'sexy']),
@@ -68,8 +69,7 @@ export async function generateWeeklyChallenge(input: WeeklyChallengeInput): Prom
     }
 
     // Select a random challenge from the filtered list.
-    const randomIndex = Math.floor(Math.random() * filteredChallenges.length);
-    const rawChallenge = filteredChallenges[randomIndex];
+    const rawChallenge = smartShuffle(`challenge_${category}`, filteredChallenges);
 
     // Personalize the challenge text if a placeholder is present
     const personalizedText = partnerName 

@@ -9,6 +9,7 @@ import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-imag
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { Separator } from "./ui/separator";
 import { atcb_action } from 'add-to-calendar-button';
+import { smartShuffle } from "@/lib/utils";
 
 interface ChallengeCardProps {
   challenge: Challenge;
@@ -95,10 +96,8 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
   const [challengeImage, setChallengeImage] = useState<ImagePlaceholder | null>(null);
   
   const getChallengeImage = () => {
-    // Select a random image when the component mounts or challenge changes
     const challengeImages = placeholderImages.filter(img => img.imageHint.includes('couple'));
-    const randomImage = challengeImages[Math.floor(Math.random() * challengeImages.length)];
-    setChallengeImage(randomImage);
+    setChallengeImage(smartShuffle('challengeImages', challengeImages));
   }
 
   useEffect(() => {

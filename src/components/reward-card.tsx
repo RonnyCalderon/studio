@@ -8,6 +8,7 @@ import Image from "next/image";
 import { placeholderImages } from "@/lib/placeholder-images";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { smartShuffle } from "@/lib/utils";
 
 interface RewardCardProps {
   expiry: number;
@@ -98,8 +99,7 @@ export function RewardCard({ expiry, onRewardEnd, onNewChallengeClick }: RewardC
     const rewardImage = placeholderImages.find(p => p.imageHint.includes('gift'));
 
     useEffect(() => {
-        // Pick a random reward. Store it in state so it doesn't change on re-render.
-        setReward(rewards[Math.floor(Math.random() * rewards.length)]);
+        setReward(smartShuffle('rewards', rewards));
     }, []);
 
     const handleRateReward = (rating: number) => {

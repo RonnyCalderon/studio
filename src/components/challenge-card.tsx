@@ -2,12 +2,13 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Flame, Sparkles, Play } from "lucide-react";
-import { useEffect, useState, useMemo } from "react";
+import { CheckCircle, Clock, Heart, Play, CalendarPlus } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { Separator } from "./ui/separator";
+import { AddToCalendarButton } from 'add-to-calendar-button-react';
 
 interface ChallengeCardProps {
   challenge: Challenge;
@@ -76,12 +77,16 @@ const SpicyLevel = ({ level }: { level: number }) => {
 
 export function ChallengeCard({ challenge, expiry, onStart, onComplete, isCompleted }: ChallengeCardProps) {
   const [challengeImage, setChallengeImage] = useState<ImagePlaceholder | null>(null);
-
-  useEffect(() => {
+  
+  const getChallengeImage = () => {
     // Select a random image when the component mounts or challenge changes
     const challengeImages = placeholderImages.filter(img => img.imageHint.includes('couple'));
     const randomImage = challengeImages[Math.floor(Math.random() * challengeImages.length)];
     setChallengeImage(randomImage);
+  }
+
+  useEffect(() => {
+    getChallengeImage();
   }, [challenge]);
 
   if (!challengeImage) {
@@ -99,6 +104,8 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
             fill
             className="object-cover"
             data-ai-hint={challengeImage.imageHint}
+            onError={getChallengeImage}
+            unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute top-4 right-4 bg-black/50 p-2 rounded-lg">
@@ -132,17 +139,33 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
           </>
         )}
       </CardContent>
-      <CardFooter className="p-6 bg-muted/50 flex justify-center">
+      <CardFooter className="p-6 bg-muted/50 flex flex-col sm:flex-row justify-center items-center gap-4">
         {isCompleted ? (
             <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
                 <CheckCircle className="h-6 w-6"/>
                 <span className="text-lg font-semibold">Challenge Completed!</span>
             </div>
         ) : isTimerRunning ? (
-            <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
-                <Heart className="mr-2 h-5 w-5" />
-                We Did It!
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+                <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <Heart className="mr-2 h-5 w-5" />
+                    We Did It!
+                </Button>
+                <div className="[&>button]:bg-transparent [&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10">
+                  <AddToCalendarButton
+                    name={`Weekly Challenge: ${challenge.text}`}
+                    description={challenge.persuasionScript}
+                    startDate={new Date(Date.now()).toISOString().split('T')[0]}
+                    endDate={new Date(expiry!).toISOString().split('T')[0]}
+                    timeZone="current"
+                    options={['Apple','Google','Outlook.com']}
+                    label="Add to Calendar"
+                    buttonStyle="round"
+                    size="sm"
+                  />
+                </div>
+
+            </div>
         ) : (
             <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
                 <Play className="mr-2 h-5 w-5" />

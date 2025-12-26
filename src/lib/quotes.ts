@@ -8,19 +8,11 @@ export const quotes = [
     author: "Anaïs Nin (Delta of Venus)"
   },
   {
-    text: "I pull him deeper into my mouth so I can feel him at the back of my throat and then to the front again. My tongue swirls around the end. He’s my very own Christian Grey-flavored popsicle. I suck harder and harder.…",
-    author: "E.L. James (Fifty Shades of Grey)"
-  },
-  {
-    text: "He was the kind of guy who made a woman want to rip his shirt open and watch the buttons scatter along with her inhibitions. I looked at him in his civilized, urbane, outrageously expensive suit and thought of raw, primal, sheet-clawing fucking.",
-    author: "Sylvia Day (Bared to You)"
-  },
-  {
-    text: "Only the united beat of sex and heart together can create ecstasy.",
+    text: "He was now in that state of fire that she loved. She wanted to be burnt.",
     author: "Anaïs Nin (Delta of Venus)"
   },
   {
-    text: "He was now in that state of fire that she loved. She wanted to be burnt.",
+    text: "Only the united beat of sex and heart together can create ecstasy.",
     author: "Anaïs Nin (Delta of Venus)"
   },
   {
@@ -28,7 +20,27 @@ export const quotes = [
     author: "Anaïs Nin (Delta of Venus)"
   },
   {
-    text: "I want to fall in love in such a way that the mere sight of a man, even a block away from me, will shake and pierce me, will weaken me, and make me tremble and soften and melt.",
-    author: "Anaïs Nin (Delta of Venus)"
+    text: "Without leaving his armchair, without even touching her with his fingertips, he ordered her to kneel down in front of him, take him and caress his sex until he discharged in her mouth.",
+    author: "Pauline Réage (Story of O)"
+  },
+  {
+    text: "Keep me rather in this cage, and feed me sparingly, if you dare. Anything that brings me closer to illness and the edge of death makes me more faithful. It is only when you make me suffer that I feel safe and secure.",
+    author: "Pauline Réage (Story of O)"
+  },
+  {
+    text: "If the costume we wear in the evening leaves our sex exposed, it is not for the sake of convenience, but for the sake of insolence, so that your eyes will be directed there upon it and nowhere else, so that you may learn that there resides your master, for whom, above all else, your lips are intended.",
+    author: "Pauline Réage (Story of O)"
+  },
+  {
+    text: "I want it to happen in my presence, I want her to do it as I wish, I want her to give herself where I give myself. It’s via Hélène Lagonelle’s body, through it, that the ultimate pleasure would pass from him to me. A pleasure unto death.",
+    author: "Marguerite Duras (The Lover)"
+  },
+  {
+    text: "He was the kind of guy who made a woman want to rip his shirt open and watch the buttons scatter along with her inhibitions. I looked at him in his civilized, urbane, outrageously expensive suit and thought of raw, primal, sheet-clawing fucking.",
+    author: "Sylvia Day (Bared to You)"
+  },
+  {
+    text: "I pull him deeper into my mouth so I can feel him at the back of my throat and then to the front again. My tongue swirls around the end. He’s my very own Christian Grey-flavored popsicle. I suck harder and harder.…",
+    author: "E.L. James (Fifty Shades of Grey)"
   }
 ]

@@ -1,0 +1,16 @@
+{
+  "name": "Ignite Desire",
+  "short_name": "Ignite",
+  "description": "A sexy couple app for weekly challenges and rewards.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

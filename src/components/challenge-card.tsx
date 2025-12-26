@@ -146,7 +146,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
           <div dangerouslySetInnerHTML={{ __html: `"${formattedPersuasionScript}"`}} />
         </div>
 
-        {isTimerRunning && (
+        {isTimerRunning && expiry && (
           <>
             <Separator className="my-6" />
             <div className="flex flex-col items-center gap-4 pt-2">
@@ -155,33 +155,12 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                     <span>Time Remaining</span>
                 </div>
                 <Countdown expiry={expiry} />
-            </div>
-          </>
-        )}
-      </CardContent>
-      <CardFooter className="p-6 bg-muted/50 flex flex-col sm:flex-row justify-center items-center gap-4">
-        {isCompleted ? (
-            <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                <CheckCircle className="h-6 w-6"/>
-                <span className="text-lg font-semibold">Challenge Completed!</span>
-            </div>
-        ) : isTimerRunning ? (
-            <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
-                <Heart className="mr-2 h-5 w-5" />
-                We Did It!
-            </Button>
-        ) : (
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-                <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
-                    <Play className="mr-2 h-5 w-5" />
-                    Start Challenge
-                </Button>
                 <AddToCalendarButton
                     config={{
                       name: `Weekly Challenge: ${challenge.text}`,
                       description: `"${challenge.text}"\n\nHere's a little script to get things started:\n${challenge.persuasionScript.replace(/<br \/>/g, '\n').replace(/<\/?strong>/g, '').replace(/<\/?ul>/g, '').replace(/<li>/g, '\n- ')}`,
-                      startDate: new Date(Date.now()).toISOString().split('T')[0],
-                      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                      startDate: new Date(expiry - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                      endDate: new Date(expiry).toISOString().split('T')[0],
                       options: ['Apple','Google','Outlook.com'],
                       alarms: [
                         {
@@ -202,12 +181,31 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                       ],
                     }}
                     variant="outline"
-                    className="font-bold"
+                    className="font-bold mt-4"
                   >
                     <CalendarPlus className="mr-2 h-5 w-5" />
                     Add to Calendar
                 </AddToCalendarButton>
             </div>
+          </>
+        )}
+      </CardContent>
+      <CardFooter className="p-6 bg-muted/50 flex flex-col sm:flex-row justify-center items-center gap-4">
+        {isCompleted ? (
+            <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                <CheckCircle className="h-6 w-6"/>
+                <span className="text-lg font-semibold">Challenge Completed!</span>
+            </div>
+        ) : isTimerRunning ? (
+            <Button size="lg" onClick={onComplete} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                <Heart className="mr-2 h-5 w-5" />
+                We Did It!
+            </Button>
+        ) : (
+          <Button size="lg" onClick={onStart} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+              <Play className="mr-2 h-5 w-5" />
+              Start Challenge
+          </Button>
         )}
       </CardFooter>
     </Card>

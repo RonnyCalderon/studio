@@ -6,10 +6,13 @@ import { generateWeeklyChallenge } from '@/ai/flows/generate-weekly-challenge';
 const CHALLENGE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
 const REWARD_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
 
+export type ChallengeCategory = 'love' | 'adventurous' | 'sexy';
+
 export interface Challenge {
   text: string;
   spicyLevel: number;
   persuasionScript: string;
+  category: ChallengeCategory;
 }
 
 export interface WeeklyChallengeState {
@@ -17,6 +20,7 @@ export interface WeeklyChallengeState {
   expiry: number | null;
   isCompleted: boolean;
   rewardExpiry: number | null;
+  isStarted: boolean;
 }
 
 export function useWeeklyChallenge() {
@@ -25,50 +29,72 @@ export function useWeeklyChallenge() {
     expiry: null,
     isCompleted: false,
     rewardExpiry: null,
+    isStarted: false,
     isLoading: true,
   });
 
-  const getNewChallenge = useCallback(async () => {
+  const loadState = useCallback(() => {
+    const storedStateJSON = localStorage.getItem('weeklyChallengeState');
+    const now = Date.now();
+
+    if (storedStateJSON) {
+      const storedState: WeeklyChallengeState = JSON.parse(storedStateJSON);
+      
+      // If challenge exists and is not expired, or is completed but reward is active
+      const isChallengeActive = storedState.expiry && now < storedState.expiry;
+      const isRewardActive = storedState.isCompleted && storedState.rewardExpiry && now < storedState.rewardExpiry;
+
+      if (isChallengeActive || isRewardActive) {
+        setState({ ...storedState, isLoading: false });
+      } else {
+        // Challenge or reward has expired, reset to selection screen
+        const resetState = { 
+            challenge: null, 
+            expiry: null, 
+            isCompleted: false, 
+            rewardExpiry: null, 
+            isStarted: false 
+        };
+        localStorage.setItem('weeklyChallengeState', JSON.stringify(resetState));
+        setState({ ...resetState, isLoading: false });
+      }
+    } else {
+      // No state, go to selection screen
+      setState(s => ({ ...s, isLoading: false, isStarted: false }));
+    }
+  }, []);
+
+  useEffect(() => {
+    loadState();
+  }, [loadState]);
+
+  const startNewChallenge = useCallback(async (category: ChallengeCategory) => {
     setState(s => ({ ...s, isLoading: true }));
     try {
-      const result = await generateWeeklyChallenge();
+      const result = await generateWeeklyChallenge({ category });
       const newExpiry = Date.now() + CHALLENGE_DURATION;
       const newState = {
         challenge: result.challenge,
         expiry: newExpiry,
         isCompleted: false,
         rewardExpiry: null,
+        isStarted: true,
       };
       localStorage.setItem('weeklyChallengeState', JSON.stringify(newState));
       setState({ ...newState, isLoading: false });
     } catch (error) {
       console.error("Failed to generate challenge:", error);
-      setState(s => ({ ...s, isLoading: false, challenge: { text: "Error loading challenge. Try refreshing.", spicyLevel: 1, persuasionScript: "Could not load a witty script, but how about you give it a try anyway?" } }));
+      const errorState = { 
+          challenge: null, 
+          expiry: null, 
+          isCompleted: false, 
+          rewardExpiry: null, 
+          isStarted: false 
+      };
+      setState({ ...errorState, isLoading: false });
     }
   }, []);
 
-  useEffect(() => {
-    const storedStateJSON = localStorage.getItem('weeklyChallengeState');
-    const now = Date.now();
-
-    if (storedStateJSON) {
-      const storedState: WeeklyChallengeState = JSON.parse(storedStateJSON);
-      if (storedState.expiry && now > storedState.expiry) {
-        // Handle expiration of a reward period
-        if (storedState.isCompleted && storedState.rewardExpiry && now > storedState.rewardExpiry) {
-            getNewChallenge();
-        } else if (!storedState.isCompleted) {
-            getNewChallenge();
-        } else {
-             setState({ ...storedState, isLoading: false });
-        }
-      } else {
-        setState({ ...storedState, isLoading: false });
-      }
-    } else {
-      getNewChallenge();
-    }
-  }, [getNewChallenge]);
 
   const completeChallenge = useCallback(() => {
     if (!state.challenge || !state.expiry) return;
@@ -90,5 +116,5 @@ export function useWeeklyChallenge() {
     setState({ ...completedState, isLoading: false });
   }, [state]);
 
-  return { ...state, completeChallenge, getNewChallenge };
+  return { ...state, completeChallenge, startNewChallenge };
 }

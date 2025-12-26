@@ -2,11 +2,12 @@
 
 import { ChallengeCard } from "@/components/challenge-card";
 import { RewardCard } from "@/components/reward-card";
-import { useWeeklyChallenge } from "@/lib/hooks/use-weekly-challenge";
+import { useWeeklyChallenge, type ChallengeCategory } from "@/lib/hooks/use-weekly-challenge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
+import { ChallengeSelection } from "@/components/challenge-selection";
 
 export default function DashboardPage() {
   const { 
@@ -15,8 +16,9 @@ export default function DashboardPage() {
     isCompleted, 
     rewardExpiry, 
     isLoading,
+    isStarted,
     completeChallenge,
-    getNewChallenge
+    startNewChallenge
   } = useWeeklyChallenge();
 
   const now = Date.now();
@@ -28,6 +30,10 @@ export default function DashboardPage() {
     }
   };
 
+  const handleSelectCategory = async (category: ChallengeCategory) => {
+    await startNewChallenge(category);
+  };
+  
   if (isLoading) {
     return (
       <div className="space-y-6">
@@ -44,6 +50,10 @@ export default function DashboardPage() {
       </div>
     );
   }
+  
+  if (!isStarted) {
+    return <ChallengeSelection onSelectCategory={handleSelectCategory} />;
+  }
 
   return (
     <div className="container mx-auto py-8">
@@ -51,7 +61,11 @@ export default function DashboardPage() {
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary">
             {isRewardActive ? "Your Reward" : "This Week's Invitation"}
         </h1>
-        <Button onClick={() => getNewChallenge()} variant="outline" size="icon" aria-label="Get new challenge">
+        <Button onClick={() => {
+            if (window.confirm("Are you sure you want to get a new challenge? This will reset your current one.")) {
+                startNewChallenge(challenge?.category as ChallengeCategory || 'love');
+            }
+        }} variant="outline" size="icon" aria-label="Get new challenge">
             <RefreshCw className="h-4 w-4" />
         </Button>
       </div>

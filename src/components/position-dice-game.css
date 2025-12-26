@@ -1,7 +1,7 @@
 .scene {
   width: 100px;
   height: 100px;
-  perspective: 400px;
+  perspective: 600px; /* Increased perspective for better 3D effect */
 }
 
 .cube {
@@ -22,28 +22,33 @@
   width: 100px;
   height: 100px;
   border: 2px solid hsl(var(--primary));
-  line-height: 100px;
-  font-size: 40px;
+  font-size: 16px; /* Smaller font for words */
   font-weight: bold;
   color: hsl(var(--primary-foreground));
   background: hsl(var(--primary));
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  box-sizing: border-box;
 }
 
 .cube[data-face="1"] { transform: translateZ(-50px) rotateY(0deg); }
-.cube[data-face="2"] { transform: translateZ(-50px) rotateX(-90deg); }
-.cube[data-face="3"] { transform: translateZ(-50px) rotateY(-90deg); }
-.cube[data-face="4"] { transform: translateZ(-50px) rotateY(90deg); }
-.cube[data-face="5"] { transform: translateZ(-50px) rotateX(90deg); }
+.cube[data-face="2"] { transform: translateZ(-50px) rotateY(-90deg); }
+.cube[data-face="3"] { transform: translateZ(-50px) rotateX(-90deg); }
+.cube[data-face="4"] { transform: translateZ(-50px) rotateX(90deg); }
+.cube[data-face="5"] { transform: translateZ(-50px) rotateY(90deg); }
 .cube[data-face="6"] { transform: translateZ(-50px) rotateY(-180deg); }
 
 
-.cube__face--1 { transform: rotateY(  0deg) translateZ(50px); }
-.cube__face--6 { transform: rotateY(180deg) translateZ(50px); }
-.cube__face--2 { transform: rotateX( 90deg) translateZ(50px); }
-.cube__face--5 { transform: rotateX(-90deg) translateZ(50px); }
-.cube__face--3 { transform: rotateY( 90deg) translateZ(50px); }
-.cube__face--4 { transform: rotateY(-90deg) translateZ(50px); }
+.cube__face--1 { transform: rotateY(  0deg) translateZ(50px); } /* Front */
+.cube__face--6 { transform: rotateY(180deg) translateZ(50px); } /* Back */
+.cube__face--2 { transform: rotateY( 90deg) translateZ(50px); } /* Right */
+.cube__face--5 { transform: rotateY(-90deg) translateZ(50px); } /* Left */
+.cube__face--3 { transform: rotateX( 90deg) translateZ(50px); } /* Top */
+.cube__face--4 { transform: rotateX(-90deg) translateZ(50px); } /* Bottom */
+
 
 @keyframes roll {
   0% {

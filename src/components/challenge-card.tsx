@@ -3,12 +3,13 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Heart, Play, Flame } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { type Challenge } from "@/lib/hooks/use-weekly-challenge";
 import { Separator } from "./ui/separator";
-import { AddToCalendarButton } from 'add-to-calendar-button-react';
+import { atcb_action } from 'add-to-calendar-button';
+import { cn } from "@/lib/utils";
 
 interface ChallengeCardProps {
   challenge: Challenge;
@@ -74,6 +75,23 @@ const SpicyLevel = ({ level }: { level: number }) => {
         </div>
     );
 };
+
+const AddToCalendarButton = ({className, ...props}: React.ComponentProps<typeof Button> & { config: Parameters<typeof atcb_action>[0] }) => {
+  const { config, ...rest } = props;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useLayoutEffect(() => {
+    if (buttonRef.current) {
+      buttonRef.current.addEventListener('click', () => atcb_action(config, buttonRef.current!));
+    }
+  }, [config, buttonRef]);
+  
+  return (
+    <Button ref={buttonRef} {...rest}>
+      {props.children}
+    </Button>
+  );
+}
 
 export function ChallengeCard({ challenge, expiry, onStart, onComplete, isCompleted }: ChallengeCardProps) {
   const [challengeImage, setChallengeImage] = useState<ImagePlaceholder | null>(null);
@@ -159,19 +177,19 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                     <Play className="mr-2 h-5 w-5" />
                     Start Challenge
                 </Button>
-                <div className="[&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10 [&>button]:bg-transparent">
-                  <AddToCalendarButton
-                    name={`Weekly Challenge: ${challenge.text}`}
-                    description={challenge.persuasionScript}
-                    startDate={new Date(Date.now()).toISOString().split('T')[0]}
-                    endDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                    timeZone="current"
-                    options={['Apple','Google','Outlook.com']}
-                    label="Add to Calendar"
-                    buttonStyle="round"
-                    size="sm"
-                  />
-                </div>
+                <AddToCalendarButton
+                    config={{
+                      name: `Weekly Challenge: ${challenge.text}`,
+                      description: challenge.persuasionScript,
+                      startDate: new Date(Date.now()).toISOString().split('T')[0],
+                      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                      options: ['Apple','Google','Outlook.com'],
+                      timeZone: "current",
+                    }}
+                    variant="outline"
+                  >
+                    Add to Calendar
+                </AddToCalendarButton>
             </div>
         )}
       </CardFooter>

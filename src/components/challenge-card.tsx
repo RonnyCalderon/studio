@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Heart, Play, CalendarPlus, Flame } from "lucide-react";
+import { CheckCircle, Clock, Heart, Play, Flame } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { placeholderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
@@ -156,7 +156,7 @@ export function ChallengeCard({ challenge, expiry, onStart, onComplete, isComple
                     <Play className="mr-2 h-5 w-5" />
                     Start Challenge
                 </Button>
-                 <div className="[&>button]:bg-transparent [&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10">
+                <div className="[&>button]:border [&>button]:border-primary [&>button]:text-primary [&>button:hover]:bg-primary/10 [&>button]:bg-transparent">
                   <AddToCalendarButton
                     name={`Weekly Challenge: ${challenge.text}`}
                     description={challenge.persuasionScript}
